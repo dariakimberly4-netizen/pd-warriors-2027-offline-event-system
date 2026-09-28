@@ -1,6 +1,6 @@
-const CACHE='pdw27-offline-event-v1';
+const CACHE='pdw27-offline-event-v2';
 const ASSETS=[
- './','./index.html','./styles.css?v=1','./app.js?v=1','./manifest.webmanifest',
+ './','./index.html','./styles.css?v=2','./app.js?v=2','./manifest.webmanifest',
  'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js',
  'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js',
  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'
