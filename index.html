@@ -297,6 +297,14 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
 .portal-design{position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;object-fit:fill!important;object-position:center!important;margin:0!important}
 .hotspot-layer{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
 .compact-stats{display:none!important}
+
+/* LOCKED FULL-SCREEN MASTER — click repair only */
+.portal-design{z-index:1!important;pointer-events:none!important}
+.hotspot-layer{z-index:20!important;pointer-events:none!important}
+.hotspot,.core-hotspot{
+ z-index:21!important;pointer-events:auto!important;display:block!important;
+ opacity:1!important;cursor:pointer!important
+}
 </style>
 </head>
 <body>
@@ -472,16 +480,26 @@ async function checkOffline(){const el=$('offlineState');if(!el)return;try{const
 async function prepareOffline(){try{const r=await navigator.serviceWorker.register('./sw.js');await r.update();await navigator.serviceWorker.ready;checkOffline();notice('Offline files refreshed.')}catch(err){notice(err.message)}}
 
 load();stats();
-document.querySelectorAll('[data-module]').forEach(btn=>{
-  btn.addEventListener('click',ev=>{
-    ev.preventDefault();
-    ev.stopPropagation();
+function activatePortalTarget(target,ev){
+  const btn=target.closest&&target.closest('[data-module]');
+  if(btn){
+    if(ev){ev.preventDefault();ev.stopPropagation();}
     openModule(btn.dataset.module);
-  });
-});
-$('detailsBtn').addEventListener('click',ev=>{
-  ev.preventDefault();
-  $('detailsDialog').showModal();
+    return true;
+  }
+  const details=target.closest&&target.closest('#detailsBtn');
+  if(details){
+    if(ev){ev.preventDefault();ev.stopPropagation();}
+    $('detailsDialog').showModal();
+    return true;
+  }
+  return false;
+}
+document.querySelector('.hotspot-layer').addEventListener('click',ev=>activatePortalTarget(ev.target,ev));
+document.querySelectorAll('.hotspot,.core-hotspot').forEach(btn=>{
+  btn.addEventListener('pointerup',ev=>{
+    if(ev.pointerType==='touch'){activatePortalTarget(btn,ev);}
+  },{passive:false});
 });
 
 </script>
