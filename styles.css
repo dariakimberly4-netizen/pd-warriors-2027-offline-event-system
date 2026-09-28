@@ -38,12 +38,12 @@ dialog{border:0;border-radius:20px;width:min(92vw,560px);box-shadow:0 22px 60px 
  #orbitScreen{display:grid;grid-template-rows:auto 1fr auto;align-items:center}
  .orbit{width:min(72vh,690px)}
  .brand h1{font-size:3rem}
- .orb{font-size:.9rem;width:20%}
+ .orb{font-size:.86rem;width:19.5%}
  .center{width:34%}
 }
 @media (max-width:520px){
  .topbar strong{font-size:.78rem}.topbar{padding:.5rem}.topbar button{padding:.6rem .7rem;font-size:.78rem}
  #orbitScreen{padding:.7rem .35rem}.brand p{font-size:.68rem}.orbit{width:98vw;margin:.2rem auto}
- .orb{width:23%;font-size:.66rem;border-width:2px}.center{width:37%;border-width:5px}.mini-stats{gap:.3rem}.mini-stats div{padding:.45rem .2rem}.mini-stats span{font-size:.6rem}
+ .orb{width:21%;font-size:.62rem;border-width:2px}.center{width:37%;border-width:5px}.mini-stats{gap:.3rem}.mini-stats div{padding:.45rem .2rem}.mini-stats span{font-size:.6rem}
  #moduleScreen{padding:.75rem}.module-head{gap:.5rem;align-items:center}.module-head .ghost{padding:.65rem .7rem;white-space:nowrap}
 }
