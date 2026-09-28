@@ -327,6 +327,19 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
 .native-core{left:50%!important;top:52%!important;width:34%!important;height:24%!important;border-radius:50%!important;background:transparent!important}
 .nm1{left:50%!important;top:16%!important}.nm2{left:78%!important;top:26%!important}.nm3{left:90%!important;top:52%!important}.nm4{left:78%!important;top:78%!important}
 .nm5{left:50%!important;top:88%!important}.nm6{left:22%!important;top:78%!important}.nm7{left:10%!important;top:52%!important}.nm8{left:22%!important;top:26%!important}
+
+/* CLICK FIX 8 — locked home hides correctly when a module opens */
+[hidden]{display:none!important}
+.module-view:not([hidden]){
+ display:block!important;
+ position:fixed!important;
+ inset:0!important;
+ z-index:30000!important;
+ overflow-y:auto!important;
+ overflow-x:hidden!important;
+ background:#fffaf0!important;
+ -webkit-overflow-scrolling:touch!important;
+}
 </style>
 </head>
 <body>
