@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b5d42">
 <title>PD Warriors 2027 Offline Event System</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=1">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 <header class="topbar">
@@ -22,20 +22,23 @@
     <small>Offline Event System</small>
   </div>
 
-  <div class="orbit" aria-label="Event modules">
-    <button class="orb o1" data-module="attendance">Attendance</button>
-    <button class="orb o2" data-module="walkin">Walk-in</button>
-    <button class="orb o3" data-module="snack">Snack</button>
-    <button class="orb o4" data-module="lunch">Lunch</button>
-    <button class="orb o5" data-module="raffle">Raffle</button>
-    <button class="orb o6" data-module="scan">QR Scan</button>
-    <button class="orb o7" data-module="roster">Roster</button>
-    <button class="orb o8" data-module="reports">Reports & Setup</button>
-    <button class="center" id="eventDetails">
-      <b>GET<br>TOGETHER</b>
+  <div class="command-orbit" aria-label="Event modules">
+    <button type="button" class="module-card m1" data-module="attendance"><span class="module-no">01</span><b>Attendance</b><small>Check-in & registration</small></button>
+    <button type="button" class="module-card m2" data-module="walkin"><span class="module-no">02</span><b>Walk-in</b><small>Register on site</small></button>
+    <button type="button" class="module-card m3" data-module="snack"><span class="module-no">03</span><b>Snack</b><small>Scan & claim</small></button>
+    <button type="button" class="module-card m4" data-module="lunch"><span class="module-no">04</span><b>Lunch</b><small>Scan & claim</small></button>
+
+    <button type="button" class="event-core" id="eventDetails">
+      <span class="core-kicker">PD WARRIORS PHILIPPINES</span>
+      <b>GET TOGETHER</b>
       <strong>2027</strong>
-      <span>EVENT PORTAL</span>
+      <span class="core-action">EVENT DETAILS</span>
     </button>
+
+    <button type="button" class="module-card m5" data-module="raffle"><span class="module-no">05</span><b>Raffle</b><small>Participant entries</small></button>
+    <button type="button" class="module-card m6" data-module="scan"><span class="module-no">06</span><b>QR Scan</b><small>Read one event pass</small></button>
+    <button type="button" class="module-card m7" data-module="roster"><span class="module-no">07</span><b>Roster</b><small>Attendees & passes</small></button>
+    <button type="button" class="module-card m8" data-module="reports"><span class="module-no">08</span><b>Reports</b><small>Offline setup & backup</small></button>
   </div>
 
   <div class="mini-stats">
@@ -87,6 +90,6 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
