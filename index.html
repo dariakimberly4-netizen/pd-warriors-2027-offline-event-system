@@ -351,14 +351,14 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
   <section class="design-stage" aria-label="Get Together 2027 event portal">
     <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=4" alt="Get Together 2027 event portal">
     <nav class="native-module-layer" aria-label="Event modules">
-<a href="#attendance" data-module="attendance" class="nm nm1">Attendance</a>
-<a href="#walkin" data-module="walkin" class="nm nm2">Walk-in</a>
-<a href="#snack" data-module="snack" class="nm nm3">Snack</a>
-<a href="#lunch" data-module="lunch" class="nm nm4">Lunch</a>
-<a href="#raffle" data-module="raffle" class="nm nm5">Raffle</a>
-<a href="#scan" data-module="scan" class="nm nm6">QR Scan</a>
-<a href="#roster" data-module="roster" class="nm nm7">Roster</a>
-<a href="#reports" data-module="reports" class="nm nm8">Reports</a>
+<a href="?module=attendance" data-module="attendance" class="nm nm1">Attendance</a>
+<a href="?module=walkin" data-module="walkin" class="nm nm2">Walk-in</a>
+<a href="?module=snack" data-module="snack" class="nm nm3">Snack</a>
+<a href="?module=lunch" data-module="lunch" class="nm nm4">Lunch</a>
+<a href="?module=raffle" data-module="raffle" class="nm nm5">Raffle</a>
+<a href="?module=scan" data-module="scan" class="nm nm6">QR Scan</a>
+<a href="?module=roster" data-module="roster" class="nm nm7">Roster</a>
+<a href="?module=reports" data-module="reports" class="nm nm8">Reports</a>
 <a href="#details" id="detailsBtn" class="native-core" aria-label="Event details"></a>
 </nav>
   </section>
@@ -516,7 +516,7 @@ async function prepareOffline(){try{const r=await navigator.serviceWorker.regist
 
 load();stats();
 window.addEventListener('click',function(ev){
-  const target=ev.target.closest ? ev.target.closest('a[data-module],#detailsBtn') : null;
+  const target=ev.target.closest ? ev.target.closest('a[data-legacy-module],#legacyDetailsBtn') : null;
   if(!target)return;
   ev.preventDefault();
   if(target.id==='detailsBtn'){
@@ -532,7 +532,7 @@ window.addEventListener('hashchange',function(){
   }
 });
 (function(){
- document.querySelectorAll('.nm[data-module]').forEach(function(el){
+ document.querySelectorAll('.nm[data-legacy-module]').forEach(function(el){
    el.onclick=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
    el.ontouchend=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
  });
@@ -541,6 +541,20 @@ window.addEventListener('hashchange',function(){
    core.onclick=function(e){e.preventDefault();e.stopPropagation();document.getElementById('detailsDialog').showModal();return false;};
    core.ontouchend=core.onclick;
  }
+})();
+
+/* PAGE ROUTING FIX 9: native URL navigation from locked artwork */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var requested=params.get('module');
+  if(requested && ['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].indexOf(requested)!==-1){
+    setTimeout(function(){ openModule(requested); },0);
+  } else if(params.get('details')==='1'){
+    setTimeout(function(){
+      var d=document.getElementById('detailsDialog');
+      if(d && d.showModal) d.showModal();
+    },0);
+  }
 })();
 </script>
 </body>
