@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5d42">
+<title>PD Warriors 2027 Parkinson Friendly Orbit</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles-v7.css?v=7">
+</head>
+<body>
+<header class="appbar">
+  <div>
+    <small>PARKINSON’S DISEASE WARRIORS PHILIPPINES</small>
+    <strong>GET TOGETHER 2027</strong>
+  </div>
+  <button id="stationBtn" class="outline">Choose station</button>
+</header>
+
+<main id="homeView" class="home-view">
+  <section class="brand">
+    <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+    <h1>GET TOGETHER <span>2027</span></h1>
+    <small>PARKINSON’S-FRIENDLY OFFLINE EVENT SYSTEM</small>
+  </section>
+
+  <section class="orbit-wrap" aria-label="Event modules">
+    <div class="orbit-ring ring-one"></div>
+    <div class="orbit-ring ring-two"></div>
+
+    <button type="button" class="orbit-node n1" data-module="attendance">
+      <span>01</span><b>Attendance</b>
+    </button>
+
+    <button type="button" class="orbit-node n2" data-module="walkin">
+      <span>02</span><b>Walk-in</b>
+    </button>
+
+    <button type="button" class="orbit-node n3" data-module="snack">
+      <span>03</span><b>Snack</b>
+    </button>
+
+    <button type="button" class="orbit-node n4" data-module="lunch">
+      <span>04</span><b>Lunch</b>
+    </button>
+
+    <button type="button" class="orbit-node n5" data-module="raffle">
+      <span>05</span><b>Raffle</b>
+    </button>
+
+    <button type="button" class="orbit-node n6" data-module="scan">
+      <span>06</span><b>QR Scan</b>
+    </button>
+
+    <button type="button" class="orbit-node n7" data-module="roster">
+      <span>07</span><b>Roster</b>
+    </button>
+
+    <button type="button" class="orbit-node n8" data-module="reports">
+      <span>08</span><b>Reports</b>
+    </button>
+
+    <button type="button" class="orbit-core" id="detailsBtn">
+      <small>PD WARRIORS</small>
+      <b>GET TOGETHER</b>
+      <strong>2027</strong>
+      <span>EVENT PORTAL</span>
+    </button>
+  </section>
+
+  <section class="stats">
+    <div><b id="sTotal">0</b><span>Attendees</span></div>
+    <div><b id="sPresent">0</b><span>Present</span></div>
+    <div><b id="sSnack">0</b><span>Snack</span></div>
+    <div><b id="sLunch">0</b><span>Lunch</span></div>
+  </section>
+</main>
+
+<main id="moduleView" class="module-view" hidden>
+  <div class="module-top">
+    <button id="backBtn" class="outline">← Back to orbit</button>
+    <div>
+      <small>GET TOGETHER 2027</small>
+      <h2 id="moduleTitle">Module</h2>
+    </div>
+  </div>
+  <div id="notice" class="notice" hidden></div>
+  <div id="moduleBody"></div>
+</main>
+
+<dialog id="stationDialog">
+<form method="dialog" id="stationForm">
+  <h2>Choose station</h2>
+  <label><input type="radio" name="station" value="registration" required> Registration & raffle</label>
+  <label><input type="radio" name="station" value="snack"> Snack station</label>
+  <label><input type="radio" name="station" value="lunch"> Lunch station</label>
+  <menu><button value="cancel" class="outline">Cancel</button><button value="default">Use station</button></menu>
+</form>
+</dialog>
+
+<dialog id="detailsDialog">
+<form method="dialog" class="details">
+  <button class="outline">← Close</button>
+  <p class="eyebrow">PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+  <h2>Get Together 2027</h2>
+  <h3>New Hope: Moving Forward Beyond Parkinson’s</h3>
+  <dl>
+    <div><dt>Date</dt><dd>January 16, 2027</dd></div>
+    <div><dt>Time</dt><dd>9:00 AM – 1:00 PM</dd></div>
+    <div><dt>Venue</dt><dd>St. Luke’s Medical Center – Quezon City</dd></div>
+  </dl>
+</form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="app-v7.js?v=7"></script>
+</body>
+</html>
