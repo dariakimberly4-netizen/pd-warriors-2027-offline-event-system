@@ -226,6 +226,33 @@ dialog form{display:grid;gap:.9rem}
  .module-top button{min-height:52px;padding:.7rem .8rem;font-size:.8rem}
 }
 
+
+/* Uploaded simple/elegant design with accessible clickable orbit hotspots */
+.image-home{max-width:900px;min-height:calc(100dvh - 66px);padding:.45rem .4rem .8rem;display:flex;flex-direction:column;justify-content:flex-start}
+.design-stage{position:relative;width:min(100%,760px);margin:0 auto;line-height:0}
+.portal-design{display:block;width:100%;height:auto;max-height:calc(100dvh - 145px);object-fit:contain;object-position:center top;border-radius:0}
+.hotspot-layer{position:absolute;inset:0;pointer-events:none}
+.hotspot,.core-hotspot{
+ position:absolute;transform:translate(-50%,-50%);pointer-events:auto;
+ border-radius:50%;background:rgba(255,255,255,.001);border:0;box-shadow:none;
+ padding:0;min-width:0;min-height:0;color:transparent;
+ touch-action:manipulation;-webkit-tap-highlight-color:rgba(214,170,46,.25)
+}
+.hotspot span,.core-hotspot span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.hotspot{width:24%;aspect-ratio:1}
+.core-hotspot{left:50%;top:52%;width:35%;aspect-ratio:1}
+.hs1{left:50%;top:16%}.hs2{left:78%;top:26%}.hs3{left:90%;top:52%}.hs4{left:78%;top:78%}
+.hs5{left:50%;top:88%}.hs6{left:22%;top:78%}.hs7{left:10%;top:52%}.hs8{left:22%;top:26%}
+.hotspot:focus-visible,.core-hotspot:focus-visible{outline:4px solid #d6aa2e;outline-offset:2px;background:rgba(255,255,255,.12)}
+.compact-stats{margin:.4rem auto 0;width:min(100%,760px)}
+@media(max-width:520px){
+ .image-home{padding:.2rem 0 .55rem}
+ .design-stage{width:100%}
+ .portal-design{max-height:calc(100dvh - 150px);width:100%;object-fit:contain}
+ .compact-stats{padding:0 .35rem}
+ .hotspot{width:26%}
+ .core-hotspot{width:38%}
+}
 </style>
 </head>
 <body>
@@ -241,58 +268,23 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
   <button id="stationBtn" class="outline">Choose station</button>
 </header>
 
-<main id="homeView" class="home-view">
-  <section class="brand">
-    <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
-    <h1>GET TOGETHER <span>2027</span></h1>
-    <small>PARKINSON’S-FRIENDLY OFFLINE EVENT SYSTEM</small>
+<main id="homeView" class="home-view image-home">
+  <section class="design-stage" aria-label="Get Together 2027 event portal">
+    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=1" alt="Get Together 2027 event portal">
+    <div class="hotspot-layer" aria-label="Event modules">
+      <button type="button" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></button>
+      <button type="button" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></button>
+      <button type="button" class="hotspot hs3" data-module="snack" aria-label="Snack"><span>Snack</span></button>
+      <button type="button" class="hotspot hs4" data-module="lunch" aria-label="Lunch"><span>Lunch</span></button>
+      <button type="button" class="hotspot hs5" data-module="raffle" aria-label="Raffle"><span>Raffle</span></button>
+      <button type="button" class="hotspot hs6" data-module="scan" aria-label="QR Scan"><span>QR Scan</span></button>
+      <button type="button" class="hotspot hs7" data-module="roster" aria-label="Roster"><span>Roster</span></button>
+      <button type="button" class="hotspot hs8" data-module="reports" aria-label="Reports"><span>Reports</span></button>
+      <button type="button" class="core-hotspot" id="detailsBtn" aria-label="Event details"><span>Event details</span></button>
+    </div>
   </section>
 
-  <section class="orbit-wrap" aria-label="Event modules">
-    <div class="orbit-ring ring-one"></div>
-    <div class="orbit-ring ring-two"></div>
-
-    <button type="button" class="orbit-node n1" data-module="attendance">
-      <span>01</span><b>Attendance</b>
-    </button>
-
-    <button type="button" class="orbit-node n2" data-module="walkin">
-      <span>02</span><b>Walk-in</b>
-    </button>
-
-    <button type="button" class="orbit-node n3" data-module="snack">
-      <span>03</span><b>Snack</b>
-    </button>
-
-    <button type="button" class="orbit-node n4" data-module="lunch">
-      <span>04</span><b>Lunch</b>
-    </button>
-
-    <button type="button" class="orbit-node n5" data-module="raffle">
-      <span>05</span><b>Raffle</b>
-    </button>
-
-    <button type="button" class="orbit-node n6" data-module="scan">
-      <span>06</span><b>QR Scan</b>
-    </button>
-
-    <button type="button" class="orbit-node n7" data-module="roster">
-      <span>07</span><b>Roster</b>
-    </button>
-
-    <button type="button" class="orbit-node n8" data-module="reports">
-      <span>08</span><b>Reports</b>
-    </button>
-
-    <button type="button" class="orbit-core" id="detailsBtn">
-      <small>PD WARRIORS</small>
-      <b>GET TOGETHER</b>
-      <strong>2027</strong>
-      <span>EVENT PORTAL</span>
-    </button>
-  </section>
-
-  <section class="stats">
+  <section class="stats compact-stats">
     <div><b id="sTotal">0</b><span>Attendees</span></div>
     <div><b id="sPresent">0</b><span>Present</span></div>
     <div><b id="sSnack">0</b><span>Snack</span></div>
