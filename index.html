@@ -264,6 +264,31 @@ dialog form{display:grid;gap:.9rem}
  .design-stage{width:100vw!important;max-width:none!important;margin:0!important}
  .portal-design{width:100vw!important;height:auto!important;max-height:none!important}
 }
+
+/* Full-screen mobile portal: preserve whole artwork, no zoom required */
+html,body{width:100%;height:100%;margin:0;overflow:hidden!important;background:#fffaf0}
+.image-home{
+ width:100vw!important;height:100dvh!important;min-height:100dvh!important;
+ padding:0!important;margin:0!important;display:flex!important;
+ align-items:center!important;justify-content:center!important;overflow:hidden!important
+}
+.design-stage{
+ position:relative!important;
+ width:min(100vw,calc(100dvh * .5625))!important;
+ height:min(100dvh,calc(100vw / .5625))!important;
+ max-width:none!important;margin:auto!important;line-height:0!important
+}
+.portal-design{
+ position:absolute!important;inset:0!important;
+ width:100%!important;height:100%!important;
+ max-height:none!important;object-fit:contain!important;object-position:center center!important;
+ border-radius:0!important
+}
+.hotspot-layer{position:absolute!important;inset:0!important}
+.compact-stats{display:none!important}
+@media (orientation:landscape){
+ .design-stage{width:min(100vw,calc(100dvh * .5625))!important;height:100dvh!important}
+}
 </style>
 </head>
 <body>
@@ -273,7 +298,7 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
 </script>
 <main id="homeView" class="home-view image-home">
   <section class="design-stage" aria-label="Get Together 2027 event portal">
-    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=2" alt="Get Together 2027 event portal">
+    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=3" alt="Get Together 2027 event portal">
     <div class="hotspot-layer" aria-label="Event modules">
       <button type="button" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></button>
       <button type="button" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></button>
