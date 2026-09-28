@@ -343,6 +343,14 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
 
 .native-module-layer{pointer-events:none!important}
 .native-module-layer a{pointer-events:auto!important;z-index:99999!important}
+
+/* v11: locked artwork, large visible native tap targets */
+.native-module-layer{position:absolute!important;inset:0!important;z-index:2147483646!important;pointer-events:none!important}
+.native-module-layer .nm,.native-module-layer .native-core{
+ pointer-events:auto!important;position:absolute!important;display:block!important;
+ z-index:2147483647!important;touch-action:manipulation!important;
+}
+.native-module-layer .nm{width:30%!important;height:16%!important;border-radius:50%!important}
 </style>
 </head>
 <body>
@@ -354,14 +362,14 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
   <section class="design-stage" aria-label="Get Together 2027 event portal">
     <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=4" alt="Get Together 2027 event portal">
     <nav class="native-module-layer" aria-label="Event modules">
-<a href="?module=attendance" data-module="attendance" class="nm nm1">Attendance</a>
-<a href="?module=walkin" data-module="walkin" class="nm nm2">Walk-in</a>
-<a href="?module=snack" data-module="snack" class="nm nm3">Snack</a>
-<a href="?module=lunch" data-module="lunch" class="nm nm4">Lunch</a>
-<a href="?module=raffle" data-module="raffle" class="nm nm5">Raffle</a>
-<a href="?module=scan" data-module="scan" class="nm nm6">QR Scan</a>
-<a href="?module=roster" data-module="roster" class="nm nm7">Roster</a>
-<a href="?module=reports" data-module="reports" class="nm nm8">Reports</a>
+<a href="?module=attendance" data-module="attendance" onclick="window.location.href='module.html?m=attendance';return false;" class="nm nm1">Attendance</a>
+<a href="?module=walkin" data-module="walkin" onclick="window.location.href='module.html?m=walkin';return false;" class="nm nm2">Walk-in</a>
+<a href="?module=snack" data-module="snack" onclick="window.location.href='module.html?m=snack';return false;" class="nm nm3">Snack</a>
+<a href="?module=lunch" data-module="lunch" onclick="window.location.href='module.html?m=lunch';return false;" class="nm nm4">Lunch</a>
+<a href="?module=raffle" data-module="raffle" onclick="window.location.href='module.html?m=raffle';return false;" class="nm nm5">Raffle</a>
+<a href="?module=scan" data-module="scan" onclick="window.location.href='module.html?m=scan';return false;" class="nm nm6">QR Scan</a>
+<a href="?module=roster" data-module="roster" onclick="window.location.href='module.html?m=roster';return false;" class="nm nm7">Roster</a>
+<a href="?module=reports" data-module="reports" onclick="window.location.href='module.html?m=reports';return false;" class="nm nm8">Reports</a>
 <a href="#details" id="detailsBtn" class="native-core" aria-label="Event details"></a>
 </nav>
   </section>
