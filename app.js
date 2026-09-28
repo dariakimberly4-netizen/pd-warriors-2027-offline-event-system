@@ -182,8 +182,22 @@ async function prepareOffline(){
  try{const r=await navigator.serviceWorker.register('./sw.js');await r.update();await navigator.serviceWorker.ready;if(navigator.storage?.persist)await navigator.storage.persist();checkOffline();notice('Offline files refreshed. Test once in airplane mode before event day.')}catch(err){notice('Offline setup failed: '+err.message)}
 }
 
-document.querySelectorAll('[data-module]').forEach(b=>b.onclick=()=>openModule(b.dataset.module));
-$('backBtn').onclick=goHome;$('eventDetails').onclick=()=>$('detailsDialog').showModal();$('stationBtn').onclick=()=>{$('stationDialog').showModal()};
+document.addEventListener('click',e=>{
+  const moduleButton=e.target.closest('[data-module]');
+  if(moduleButton){
+    e.preventDefault();
+    const id=moduleButton.dataset.module;
+    if(id)openModule(id);
+    return;
+  }
+  const details=e.target.closest('#eventDetails');
+  if(details){
+    e.preventDefault();
+    $('detailsDialog').showModal();
+  }
+});
+$('backBtn').onclick=goHome;
+$('stationBtn').onclick=()=>{$('stationDialog').showModal()};
 $('stationForm').addEventListener('submit',e=>{const val=new FormData(e.target).get('station');if(val){station=val;localStorage.setItem(STATION_KEY,val);stats()}});
 
 function connectivity(){$('net').textContent=navigator.onLine?'Connection available':'Offline · local records active'}
