@@ -253,6 +253,17 @@ dialog form{display:grid;gap:.9rem}
  .hotspot{width:26%}
  .core-hotspot{width:38%}
 }
+
+/* DESIGN 2: exact uploaded artwork as the home screen */
+.image-home{max-width:none!important;width:100%!important;min-height:100dvh!important;padding:0!important;margin:0!important;background:#fffaf0!important;display:block!important}
+.design-stage{position:relative!important;width:100%!important;max-width:760px!important;margin:0 auto!important;line-height:0!important}
+.portal-design{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:0!important}
+.compact-stats{display:none!important}
+@media(max-width:520px){
+ .image-home{padding:0!important}
+ .design-stage{width:100vw!important;max-width:none!important;margin:0!important}
+ .portal-design{width:100vw!important;height:auto!important;max-height:none!important}
+}
 </style>
 </head>
 <body>
@@ -260,17 +271,9 @@ dialog form{display:grid;gap:.9rem}
 if ("serviceWorker" in navigator) { navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); }); }
 if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
 </script>
-<header class="appbar">
-  <div>
-    <small>PARKINSON’S DISEASE WARRIORS PHILIPPINES</small>
-    <strong>GET TOGETHER 2027</strong>
-  </div>
-  <button id="stationBtn" class="outline">Choose station</button>
-</header>
-
 <main id="homeView" class="home-view image-home">
   <section class="design-stage" aria-label="Get Together 2027 event portal">
-    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=1" alt="Get Together 2027 event portal">
+    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=2" alt="Get Together 2027 event portal">
     <div class="hotspot-layer" aria-label="Event modules">
       <button type="button" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></button>
       <button type="button" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></button>
