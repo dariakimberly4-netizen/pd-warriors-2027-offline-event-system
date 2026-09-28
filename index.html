@@ -340,6 +340,9 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
  background:#fffaf0!important;
  -webkit-overflow-scrolling:touch!important;
 }
+
+.native-module-layer{pointer-events:none!important}
+.native-module-layer a{pointer-events:auto!important;z-index:99999!important}
 </style>
 </head>
 <body>
@@ -515,47 +518,7 @@ async function checkOffline(){const el=$('offlineState');if(!el)return;try{const
 async function prepareOffline(){try{const r=await navigator.serviceWorker.register('./sw.js');await r.update();await navigator.serviceWorker.ready;checkOffline();notice('Offline files refreshed.')}catch(err){notice(err.message)}}
 
 load();stats();
-window.addEventListener('click',function(ev){
-  const target=ev.target.closest ? ev.target.closest('a[data-legacy-module],#legacyDetailsBtn') : null;
-  if(!target)return;
-  ev.preventDefault();
-  if(target.id==='detailsBtn'){
-    document.getElementById('detailsDialog').showModal();
-  }else{
-    openModule(target.getAttribute('data-module'));
-  }
-},true);
-window.addEventListener('hashchange',function(){
-  const id=location.hash.slice(1);
-  if(['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].includes(id)){
-    openModule(id); history.replaceState(null,'',location.pathname+location.search);
-  }
-});
-(function(){
- document.querySelectorAll('.nm[data-legacy-module]').forEach(function(el){
-   el.onclick=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
-   el.ontouchend=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
- });
- var core=document.getElementById('detailsBtn');
- if(core){
-   core.onclick=function(e){e.preventDefault();e.stopPropagation();document.getElementById('detailsDialog').showModal();return false;};
-   core.ontouchend=core.onclick;
- }
-})();
-
-/* PAGE ROUTING FIX 9: native URL navigation from locked artwork */
-(function(){
-  var params=new URLSearchParams(window.location.search);
-  var requested=params.get('module');
-  if(requested && ['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].indexOf(requested)!==-1){
-    setTimeout(function(){ openModule(requested); },0);
-  } else if(params.get('details')==='1'){
-    setTimeout(function(){
-      var d=document.getElementById('detailsDialog');
-      if(d && d.showModal) d.showModal();
-    },0);
-  }
-})();
+// Home portal uses native browser links only. No JavaScript intercepts taps.
 </script>
 </body>
 </html>
