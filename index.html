@@ -6,90 +6,89 @@
 <meta name="theme-color" content="#0b5d42">
 <title>PD Warriors 2027 Offline Event System</title>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles-v4.css?v=4">
 </head>
 <body>
-<header class="topbar">
-  <div><strong>PD WARRIORS 2027</strong><span id="net">Checking…</span></div>
-  <button id="stationBtn" class="ghost">Choose station</button>
+<header class="appbar">
+  <div>
+    <small>PARKINSON’S DISEASE WARRIORS PHILIPPINES</small>
+    <strong>GET TOGETHER 2027</strong>
+  </div>
+  <button id="stationBtn" class="outline">Choose station</button>
 </header>
 
-<main>
-<section id="orbitScreen" class="screen active">
-  <div class="brand">
-    <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
-    <h1>GET TOGETHER <span>2027</span></h1>
-    <small>Offline Event System</small>
-  </div>
-
-  <div class="command-orbit" aria-label="Event modules">
-    <button type="button" class="module-card m1" data-module="attendance"><span class="module-no">01</span><b>Attendance</b><small>Check-in & registration</small></button>
-    <button type="button" class="module-card m2" data-module="walkin"><span class="module-no">02</span><b>Walk-in</b><small>Register on site</small></button>
-    <button type="button" class="module-card m3" data-module="snack"><span class="module-no">03</span><b>Snack</b><small>Scan & claim</small></button>
-    <button type="button" class="module-card m4" data-module="lunch"><span class="module-no">04</span><b>Lunch</b><small>Scan & claim</small></button>
-
-    <button type="button" class="event-core" id="eventDetails">
-      <span class="core-kicker">PD WARRIORS PHILIPPINES</span>
-      <b>GET TOGETHER</b>
-      <strong>2027</strong>
-      <span class="core-action">EVENT DETAILS</span>
+<main id="homeView" class="home-view">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">OFFLINE EVENT SYSTEM</p>
+      <h1>Event Command Center</h1>
+      <p>One QR for attendance, snack, lunch and raffle.</p>
+    </div>
+    <button id="detailsBtn" class="event-badge">
+      <span>GET TOGETHER</span>
+      <b>2027</b>
+      <small>Event Details</small>
     </button>
+  </section>
 
-    <button type="button" class="module-card m5" data-module="raffle"><span class="module-no">05</span><b>Raffle</b><small>Participant entries</small></button>
-    <button type="button" class="module-card m6" data-module="scan"><span class="module-no">06</span><b>QR Scan</b><small>Read one event pass</small></button>
-    <button type="button" class="module-card m7" data-module="roster"><span class="module-no">07</span><b>Roster</b><small>Attendees & passes</small></button>
-    <button type="button" class="module-card m8" data-module="reports"><span class="module-no">08</span><b>Reports</b><small>Offline setup & backup</small></button>
-  </div>
+  <section class="modules" aria-label="Event modules">
+    <button class="module-card" data-module="attendance"><span>01</span><div><b>Attendance</b><small>Check-in and registration</small></div></button>
+    <button class="module-card" data-module="walkin"><span>02</span><div><b>Walk-in</b><small>Register on site</small></div></button>
+    <button class="module-card" data-module="snack"><span>03</span><div><b>Snack</b><small>Scan and claim</small></div></button>
+    <button class="module-card" data-module="lunch"><span>04</span><div><b>Lunch</b><small>Scan and claim</small></div></button>
+    <button class="module-card" data-module="raffle"><span>05</span><div><b>Raffle</b><small>Participant-only entries</small></div></button>
+    <button class="module-card" data-module="scan"><span>06</span><div><b>QR Scan</b><small>Open one event pass</small></div></button>
+    <button class="module-card" data-module="roster"><span>07</span><div><b>Roster</b><small>Attendees and passes</small></div></button>
+    <button class="module-card" data-module="reports"><span>08</span><div><b>Reports & Setup</b><small>Offline prep and backup</small></div></button>
+  </section>
 
-  <div class="mini-stats">
+  <section class="stats">
     <div><b id="sTotal">0</b><span>Attendees</span></div>
     <div><b id="sPresent">0</b><span>Present</span></div>
     <div><b id="sSnack">0</b><span>Snack</span></div>
     <div><b id="sLunch">0</b><span>Lunch</span></div>
-  </div>
-</section>
+  </section>
+</main>
 
-<section id="moduleScreen" class="screen">
-  <div class="module-head">
-    <button id="backBtn" class="ghost">← Back to orbit</button>
+<main id="moduleView" class="module-view" hidden>
+  <div class="module-top">
+    <button id="backBtn" class="outline">← Back</button>
     <div>
-      <small id="moduleKicker">GET TOGETHER 2027</small>
+      <small>GET TOGETHER 2027</small>
       <h2 id="moduleTitle">Module</h2>
     </div>
   </div>
   <div id="notice" class="notice" hidden></div>
   <div id="moduleBody"></div>
-</section>
 </main>
 
 <dialog id="stationDialog">
 <form method="dialog" id="stationForm">
-  <h2>Choose this device’s station</h2>
+  <h2>Choose station</h2>
   <label><input type="radio" name="station" value="registration" required> Registration & raffle</label>
   <label><input type="radio" name="station" value="snack"> Snack station</label>
   <label><input type="radio" name="station" value="lunch"> Lunch station</label>
-  <menu><button value="cancel" class="ghost">Cancel</button><button value="default">Use station</button></menu>
+  <menu><button value="cancel" class="outline">Cancel</button><button value="default">Use station</button></menu>
 </form>
 </dialog>
 
 <dialog id="detailsDialog">
 <form method="dialog" class="details">
-  <button class="ghost">← Back</button>
-  <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
-  <h2>Get Together <span>2027</span></h2>
+  <button class="outline">← Close</button>
+  <p class="eyebrow">PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+  <h2>Get Together 2027</h2>
   <h3>New Hope: Moving Forward Beyond Parkinson’s</h3>
   <dl>
     <div><dt>Date</dt><dd>January 16, 2027</dd></div>
     <div><dt>Time</dt><dd>9:00 AM – 1:00 PM</dd></div>
     <div><dt>Venue</dt><dd>St. Luke’s Medical Center – Quezon City</dd></div>
   </dl>
-  <p>One QR for attendance, snack, lunch and raffle.</p>
 </form>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="app.js?v=3"></script>
+<script src="app-v4.js?v=4"></script>
 </body>
 </html>
