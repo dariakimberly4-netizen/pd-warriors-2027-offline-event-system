@@ -305,6 +305,16 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
  z-index:21!important;pointer-events:auto!important;display:block!important;
  opacity:1!important;cursor:pointer!important
 }
+
+/* LOCKED MASTER — native anchor hit targets */
+.hotspot,.core-hotspot{
+ text-decoration:none!important;
+ position:absolute!important;
+ transform:translate(-50%,-50%)!important;
+ background:transparent!important;
+ border:0!important;
+ -webkit-tap-highlight-color:rgba(214,170,46,.35)!important;
+}
 </style>
 </head>
 <body>
@@ -316,15 +326,15 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
   <section class="design-stage" aria-label="Get Together 2027 event portal">
     <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=4" alt="Get Together 2027 event portal">
     <div class="hotspot-layer" aria-label="Event modules">
-      <button type="button" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></button>
-      <button type="button" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></button>
-      <button type="button" class="hotspot hs3" data-module="snack" aria-label="Snack"><span>Snack</span></button>
-      <button type="button" class="hotspot hs4" data-module="lunch" aria-label="Lunch"><span>Lunch</span></button>
-      <button type="button" class="hotspot hs5" data-module="raffle" aria-label="Raffle"><span>Raffle</span></button>
-      <button type="button" class="hotspot hs6" data-module="scan" aria-label="QR Scan"><span>QR Scan</span></button>
-      <button type="button" class="hotspot hs7" data-module="roster" aria-label="Roster"><span>Roster</span></button>
-      <button type="button" class="hotspot hs8" data-module="reports" aria-label="Reports"><span>Reports</span></button>
-      <button type="button" class="core-hotspot" id="detailsBtn" aria-label="Event details"><span>Event details</span></button>
+      <a href="#attendance" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></a>
+      <a href="#walkin" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></a>
+      <a href="#snack" class="hotspot hs3" data-module="snack" aria-label="Snack"><span>Snack</span></a>
+      <a href="#lunch" class="hotspot hs4" data-module="lunch" aria-label="Lunch"><span>Lunch</span></a>
+      <a href="#raffle" class="hotspot hs5" data-module="raffle" aria-label="Raffle"><span>Raffle</span></a>
+      <a href="#scan" class="hotspot hs6" data-module="scan" aria-label="QR Scan"><span>QR Scan</span></a>
+      <a href="#roster" class="hotspot hs7" data-module="roster" aria-label="Roster"><span>Roster</span></a>
+      <a href="#reports" class="hotspot hs8" data-module="reports" aria-label="Reports"><span>Reports</span></a>
+      <a href="#details" class="core-hotspot" id="detailsBtn" aria-label="Event details"><span>Event details</span></a>
     </div>
   </section>
 
@@ -480,28 +490,21 @@ async function checkOffline(){const el=$('offlineState');if(!el)return;try{const
 async function prepareOffline(){try{const r=await navigator.serviceWorker.register('./sw.js');await r.update();await navigator.serviceWorker.ready;checkOffline();notice('Offline files refreshed.')}catch(err){notice(err.message)}}
 
 load();stats();
-function activatePortalTarget(target,ev){
-  const btn=target.closest&&target.closest('[data-module]');
-  if(btn){
-    if(ev){ev.preventDefault();ev.stopPropagation();}
-    openModule(btn.dataset.module);
-    return true;
+window.addEventListener('click',function(ev){
+  const target=ev.target.closest ? ev.target.closest('a[data-module],#detailsBtn') : null;
+  if(!target)return;
+  ev.preventDefault();
+  if(target.id==='detailsBtn'){
+    document.getElementById('detailsDialog').showModal();
+  }else{
+    openModule(target.getAttribute('data-module'));
   }
-  const details=target.closest&&target.closest('#detailsBtn');
-  if(details){
-    if(ev){ev.preventDefault();ev.stopPropagation();}
-    $('detailsDialog').showModal();
-    return true;
+},true);
+window.addEventListener('hashchange',function(){
+  const id=location.hash.slice(1);
+  if(['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].includes(id)){
+    openModule(id); history.replaceState(null,'',location.pathname+location.search);
   }
-  return false;
-}
-document.querySelector('.hotspot-layer').addEventListener('click',ev=>activatePortalTarget(ev.target,ev));
-document.querySelectorAll('.hotspot,.core-hotspot').forEach(btn=>{
-  btn.addEventListener('pointerup',ev=>{
-    if(ev.pointerType==='touch'){activatePortalTarget(btn,ev);}
-  },{passive:false});
-});
-
-</script>
+});</script>
 </body>
 </html>
