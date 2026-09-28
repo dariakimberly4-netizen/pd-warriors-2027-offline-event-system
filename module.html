@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5d42">
+<title>PD Warriors 2027 Parkinson Friendly Orbit</title>
+
+<style>
+:root{
+  --green:#0b5d42;
+  --green-dark:#073f2d;
+  --gold:#d6aa2e;
+  --cream:#fffaf0;
+  --red:#b62634;
+  --ink:#173229;
+  --muted:#5f6e66;
+  --card:#fff;
+  --line:#e5d8ad;
+  --shadow:0 8px 22px rgba(31,57,45,.10);
+  --tap:92px;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg,#fffdf8,#f7f2e7);
+  color:var(--ink);
+  scroll-behavior:auto;
+}
+button,input,select,label.button{font:inherit}
+button,label.button{
+  border:0;
+  border-radius:18px;
+  background:var(--green);
+  color:#fff;
+  font-weight:900;
+  padding:1rem 1.1rem;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+button:focus-visible{outline:4px solid #f2c84c;outline-offset:3px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.outline{background:white;color:var(--green);border:2px solid #cfd9d2}
+.appbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  padding:.8rem 1rem;
+  background:rgba(255,255,255,.98);
+  border-bottom:1px solid #e6e6e6;
+}
+.appbar div{display:grid;gap:.1rem}
+.appbar small{font-size:.62rem;letter-spacing:.08em;font-weight:900;color:#77663a}
+.appbar strong{font-size:1rem;color:var(--green)}
+.home-view{min-height:calc(100vh - 70px);max-width:1100px;margin:auto;padding:1rem}
+.brand{text-align:center;margin-bottom:.4rem}
+.brand p{font-size:.78rem;font-weight:900;letter-spacing:.07em;margin:.1rem 0;color:#79683a}
+.brand h1{margin:.15rem 0;font-family:Georgia,serif;color:var(--green);font-size:clamp(2.1rem,7vw,3.8rem)}
+.brand h1 span{color:var(--red)}
+.brand small{font-weight:900;color:#5f6e66;font-size:.78rem}
+.orbit-wrap{
+  position:relative;
+  width:min(86vw,680px);
+  aspect-ratio:1;
+  margin:.8rem auto 1rem;
+}
+.orbit-ring{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.ring-one{inset:12%;border:3px solid rgba(214,170,46,.55)}
+.ring-two{display:none}
+.orbit-node,.orbit-core{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  z-index:5;
+  pointer-events:auto!important;
+}
+.orbit-node{
+  width:24%;
+  min-width:var(--tap);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:#fffdf7;
+  border:3px solid var(--gold);
+  color:var(--green-dark);
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.15rem;
+  padding:.55rem;
+  text-align:center;
+}
+.orbit-node span{font-size:.62rem;letter-spacing:.07em;color:#8b711c;font-weight:900}
+.orbit-node b{font-size:clamp(.82rem,2.3vw,1.05rem);line-height:1.05}
+.orbit-node::after{
+  content:"Tap";
+  display:block;
+  font-size:.56rem;
+  color:#6b756f;
+  font-weight:800;
+  margin-top:.08rem;
+}
+.n1{left:50%;top:7%}
+.n2{left:80%;top:20%}
+.n3{left:93%;top:50%}
+.n4{left:80%;top:80%}
+.n5{left:50%;top:93%}
+.n6{left:20%;top:80%}
+.n7{left:7%;top:50%}
+.n8{left:20%;top:20%}
+.orbit-core{
+  left:50%;top:50%;
+  width:38%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:7px double var(--gold);
+  background:var(--green-dark);
+  color:white;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:.12rem;
+  text-align:center;
+  padding:1rem;
+  box-shadow:0 10px 26px rgba(11,77,55,.22);
+}
+.orbit-core small{font-size:.48rem;letter-spacing:.08em}
+.orbit-core b{font-family:Georgia,serif;font-size:clamp(.9rem,2.6vw,1.35rem);line-height:1}
+.orbit-core strong{font-size:clamp(2rem,6vw,3.5rem);line-height:1;color:#f2c84c}
+.orbit-core span{font-size:.58rem;letter-spacing:.11em}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.65rem;
+  max-width:760px;
+  margin:auto;
+}
+.stats div{
+  background:white;
+  border:2px solid var(--line);
+  border-radius:16px;
+  padding:.75rem;
+  text-align:center;
+}
+.stats b{display:block;color:var(--green);font-size:1.35rem}
+.stats span{font-size:.72rem;color:var(--muted);font-weight:800}
+.module-view{max-width:1000px;margin:auto;padding:1rem}
+.module-top{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.module-top small{font-size:.72rem;font-weight:900;color:#8a7840}
+.module-top h2{margin:.1rem 0;color:var(--green);font-size:2.2rem}
+.notice,.panel,.person,.pass,.card{
+  background:white;
+  border:2px solid var(--line);
+  border-radius:18px;
+  padding:1.1rem;
+  margin:.85rem 0;
+  box-shadow:var(--shadow)
+}
+.notice{border-left:7px solid var(--gold);background:#fff9df}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin:.85rem 0}
+.actions button,.actions label.button{min-height:58px}
+input,select{
+  width:100%;
+  min-height:56px;
+  padding:1rem;
+  border:2px solid #cfd9d3;
+  border-radius:14px;
+  margin:.4rem 0 .8rem;
+  background:#fff;
+  font-size:1.05rem;
+}
+.person{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.person button{min-width:90px;min-height:56px}
+.person small{color:var(--muted);font-size:.85rem}
+.pass{text-align:center;border:3px solid var(--gold);background:linear-gradient(#fffef9,#fff8e7)}
+.pass .qr{display:grid;place-items:center;margin:.8rem auto}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:.45rem}
+.chip{font-size:.75rem;border:2px solid var(--gold);border-radius:999px;padding:.4rem .6rem;font-weight:900}
+.big{font-size:3rem;font-weight:900;color:var(--green)}
+.status-ok{color:#197043;font-weight:900}
+.status-bad{color:#a9202d;font-weight:900}
+video{width:100%;max-width:520px;border-radius:16px;background:#111}
+dialog{
+  border:0;border-radius:22px;width:min(94vw,580px);
+  box-shadow:0 20px 60px rgba(0,0,0,.25)
+}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+dialog form{display:grid;gap:.9rem}
+.details h2{font-size:2rem;color:var(--green);margin:.1rem 0}
+.details dl div{display:grid;grid-template-columns:95px 1fr;gap:.6rem;padding:.65rem 0;border-bottom:1px solid #eee}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+@media(min-width:900px){
+  .home-view{display:grid;grid-template-rows:auto 1fr auto;align-items:center}
+  .orbit-wrap{width:min(74vh,700px)}
+}
+@media(max-width:520px){
+ .appbar{padding:.6rem}
+ .appbar strong{font-size:.8rem}
+ .appbar small{font-size:.5rem}
+ .appbar button{font-size:.74rem;padding:.7rem .8rem}
+ .home-view{padding:.65rem .4rem .9rem}
+ .brand p{font-size:.62rem}
+ .brand h1{font-size:2rem}
+ .brand small{font-size:.66rem}
+ .orbit-wrap{width:96vw;margin:.45rem auto .65rem}
+ .orbit-node{width:24%;min-width:78px;border-width:3px;padding:.3rem}
+ .orbit-node b{font-size:.7rem}
+ .orbit-node span{font-size:.54rem}
+ .orbit-node::after{font-size:.48rem}
+ .orbit-core{width:39%;border-width:6px;padding:.6rem}
+ .stats{gap:.35rem}
+ .stats div{padding:.5rem .2rem}
+ .stats b{font-size:1.12rem}
+ .stats span{font-size:.58rem}
+ .module-view{padding:.8rem}
+ .module-top{gap:.6rem}
+ .module-top h2{font-size:1.55rem}
+ .module-top button{min-height:52px;padding:.7rem .8rem;font-size:.8rem}
+}
+
+
+/* Uploaded simple/elegant design with accessible clickable orbit hotspots */
+.image-home{max-width:900px;min-height:calc(100dvh - 66px);padding:.45rem .4rem .8rem;display:flex;flex-direction:column;justify-content:flex-start}
+.design-stage{position:relative;width:min(100%,760px);margin:0 auto;line-height:0}
+.portal-design{display:block;width:100%;height:auto;max-height:calc(100dvh - 145px);object-fit:contain;object-position:center top;border-radius:0}
+.hotspot-layer{position:absolute;inset:0;pointer-events:none}
+.hotspot,.core-hotspot{
+ position:absolute;transform:translate(-50%,-50%);pointer-events:auto;
+ border-radius:50%;background:rgba(255,255,255,.001);border:0;box-shadow:none;
+ padding:0;min-width:0;min-height:0;color:transparent;
+ touch-action:manipulation;-webkit-tap-highlight-color:rgba(214,170,46,.25)
+}
+.hotspot span,.core-hotspot span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.hotspot{width:24%;aspect-ratio:1}
+.core-hotspot{left:50%;top:52%;width:35%;aspect-ratio:1}
+.hs1{left:50%;top:16%}.hs2{left:78%;top:26%}.hs3{left:90%;top:52%}.hs4{left:78%;top:78%}
+.hs5{left:50%;top:88%}.hs6{left:22%;top:78%}.hs7{left:10%;top:52%}.hs8{left:22%;top:26%}
+.hotspot:focus-visible,.core-hotspot:focus-visible{outline:4px solid #d6aa2e;outline-offset:2px;background:rgba(255,255,255,.12)}
+.compact-stats{margin:.4rem auto 0;width:min(100%,760px)}
+@media(max-width:520px){
+ .image-home{padding:.2rem 0 .55rem}
+ .design-stage{width:100%}
+ .portal-design{max-height:calc(100dvh - 150px);width:100%;object-fit:contain}
+ .compact-stats{padding:0 .35rem}
+ .hotspot{width:26%}
+ .core-hotspot{width:38%}
+}
+
+/* DESIGN 2: exact uploaded artwork as the home screen */
+.image-home{max-width:none!important;width:100%!important;min-height:100dvh!important;padding:0!important;margin:0!important;background:#fffaf0!important;display:block!important}
+.design-stage{position:relative!important;width:100%!important;max-width:760px!important;margin:0 auto!important;line-height:0!important}
+.portal-design{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:0!important}
+.compact-stats{display:none!important}
+@media(max-width:520px){
+ .image-home{padding:0!important}
+ .design-stage{width:100vw!important;max-width:none!important;margin:0!important}
+ .portal-design{width:100vw!important;height:auto!important;max-height:none!important}
+}
+
+/* Full-screen mobile portal: preserve whole artwork, no zoom required */
+html,body{width:100%;height:100%;margin:0;overflow:hidden!important;background:#fffaf0}
+.image-home{
+ width:100vw!important;height:100dvh!important;min-height:100dvh!important;
+ padding:0!important;margin:0!important;display:flex!important;
+ align-items:center!important;justify-content:center!important;overflow:hidden!important
+}
+.design-stage{
+ position:relative!important;
+ width:min(100vw,calc(100dvh * .5625))!important;
+ height:min(100dvh,calc(100vw / .5625))!important;
+ max-width:none!important;margin:auto!important;line-height:0!important
+}
+.portal-design{
+ position:absolute!important;inset:0!important;
+ width:100%!important;height:100%!important;
+ max-height:none!important;object-fit:contain!important;object-position:center center!important;
+ border-radius:0!important
+}
+.hotspot-layer{position:absolute!important;inset:0!important}
+.compact-stats{display:none!important}
+@media (orientation:landscape){
+ .design-stage{width:min(100vw,calc(100dvh * .5625))!important;height:100dvh!important}
+}
+
+/* V4 mobile fill: use the available browser viewport instead of poster aspect ratio */
+html,body{margin:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:#fffaf0!important}
+.image-home{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important;display:block!important}
+.design-stage{position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;margin:0!important;overflow:hidden!important}
+.portal-design{position:absolute!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;object-fit:fill!important;object-position:center!important;margin:0!important}
+.hotspot-layer{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
+.compact-stats{display:none!important}
+
+/* LOCKED FULL-SCREEN MASTER — click repair only */
+.portal-design{z-index:1!important;pointer-events:none!important}
+.hotspot-layer{z-index:20!important;pointer-events:none!important}
+.hotspot,.core-hotspot{
+ z-index:21!important;pointer-events:auto!important;display:block!important;
+ opacity:1!important;cursor:pointer!important
+}
+
+/* LOCKED MASTER — native anchor hit targets */
+.hotspot,.core-hotspot{
+ text-decoration:none!important;
+ position:absolute!important;
+ transform:translate(-50%,-50%)!important;
+ background:transparent!important;
+ border:0!important;
+ -webkit-tap-highlight-color:rgba(214,170,46,.35)!important;
+}
+
+/* LOCKED VISUAL — native clickable controls aligned over artwork */
+.portal-design{pointer-events:none!important;z-index:1!important}
+.native-module-layer{position:absolute!important;inset:0!important;z-index:9999!important;pointer-events:none!important}
+.nm,.native-core{position:absolute!important;transform:translate(-50%,-50%)!important;z-index:10000!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:rgba(214,170,46,.4)!important}
+.nm{
+ width:22%!important;height:11%!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ color:transparent!important;background:transparent!important;text-decoration:none!important;border-radius:999px!important;font-size:1px!important
+}
+.native-core{left:50%!important;top:52%!important;width:34%!important;height:24%!important;border-radius:50%!important;background:transparent!important}
+.nm1{left:50%!important;top:16%!important}.nm2{left:78%!important;top:26%!important}.nm3{left:90%!important;top:52%!important}.nm4{left:78%!important;top:78%!important}
+.nm5{left:50%!important;top:88%!important}.nm6{left:22%!important;top:78%!important}.nm7{left:10%!important;top:52%!important}.nm8{left:22%!important;top:26%!important}
+
+/* CLICK FIX 8 — locked home hides correctly when a module opens */
+[hidden]{display:none!important}
+.module-view:not([hidden]){
+ display:block!important;
+ position:fixed!important;
+ inset:0!important;
+ z-index:30000!important;
+ overflow-y:auto!important;
+ overflow-x:hidden!important;
+ background:#fffaf0!important;
+ -webkit-overflow-scrolling:touch!important;
+}
+
+body.module-page .image-home{display:none!important}
+body.module-page .module-view{display:block!important;position:fixed!important;inset:0!important;z-index:40000!important;overflow:auto!important;background:#fffaf0!important}
+body.module-page .back{display:none!important}
+.module-page-back{position:fixed;top:12px;left:12px;z-index:50000;padding:10px 14px;border-radius:999px;background:#173f35;color:white;text-decoration:none;font-weight:800}
+</style>
+</head>
+<body class="module-page"><a class="module-page-back" href="index.html">← Back</a>
+<script>
+if ("serviceWorker" in navigator) { navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); }); }
+if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }); }
+</script>
+<main id="homeView" class="home-view image-home">
+  <section class="design-stage" aria-label="Get Together 2027 event portal">
+    <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=4" alt="Get Together 2027 event portal">
+    <nav class="native-module-layer" aria-label="Event modules">
+<a href="?module=attendance" data-module="attendance" class="nm nm1">Attendance</a>
+<a href="?module=walkin" data-module="walkin" class="nm nm2">Walk-in</a>
+<a href="?module=snack" data-module="snack" class="nm nm3">Snack</a>
+<a href="?module=lunch" data-module="lunch" class="nm nm4">Lunch</a>
+<a href="?module=raffle" data-module="raffle" class="nm nm5">Raffle</a>
+<a href="?module=scan" data-module="scan" class="nm nm6">QR Scan</a>
+<a href="?module=roster" data-module="roster" class="nm nm7">Roster</a>
+<a href="?module=reports" data-module="reports" class="nm nm8">Reports</a>
+<a href="#details" id="detailsBtn" class="native-core" aria-label="Event details"></a>
+</nav>
+  </section>
+
+  <section class="stats compact-stats">
+    <div><b id="sTotal">0</b><span>Attendees</span></div>
+    <div><b id="sPresent">0</b><span>Present</span></div>
+    <div><b id="sSnack">0</b><span>Snack</span></div>
+    <div><b id="sLunch">0</b><span>Lunch</span></div>
+  </section>
+</main>
+
+<main id="moduleView" class="module-view" hidden>
+  <div class="module-top">
+    <button id="backBtn" class="outline">← Back to orbit</button>
+    <div>
+      <small>GET TOGETHER 2027</small>
+      <h2 id="moduleTitle">Module</h2>
+    </div>
+  </div>
+  <div id="notice" class="notice" hidden></div>
+  <div id="moduleBody"></div>
+</main>
+
+<dialog id="stationDialog">
+<form method="dialog" id="stationForm">
+  <h2>Choose station</h2>
+  <label><input type="radio" name="station" value="registration" required> Registration & raffle</label>
+  <label><input type="radio" name="station" value="snack"> Snack station</label>
+  <label><input type="radio" name="station" value="lunch"> Lunch station</label>
+  <menu><button value="cancel" class="outline">Cancel</button><button value="default">Use station</button></menu>
+</form>
+</dialog>
+
+<dialog id="detailsDialog">
+<form method="dialog" class="details">
+  <button class="outline">← Close</button>
+  <p class="eyebrow">PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+  <h2>Get Together 2027</h2>
+  <h3>New Hope: Moving Forward Beyond Parkinson’s</h3>
+  <dl>
+    <div><dt>Date</dt><dd>January 16, 2027</dd></div>
+    <div><dt>Time</dt><dd>9:00 AM – 1:00 PM</dd></div>
+    <div><dt>Venue</dt><dd>St. Luke’s Medical Center – Quezon City</dd></div>
+  </dl>
+</form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const DATA_KEY='pdw27-offline-event-data-v1';
+const STATION_KEY='pdw27-offline-station-v1';
+const EVENT='PDW27';
+let people=[],station=localStorage.getItem(STATION_KEY)||'',active='',stream=null,raf=null;
+
+function load(){try{people=JSON.parse(localStorage.getItem(DATA_KEY)||'[]');if(!Array.isArray(people))people=[]}catch{people=[]}}
+function save(){localStorage.setItem(DATA_KEY,JSON.stringify(people));stats()}
+function stats(){
+ $('sTotal').textContent=people.length;
+ $('sPresent').textContent=people.filter(p=>p.attendance).length;
+ $('sSnack').textContent=people.filter(p=>p.snack).length;
+ $('sLunch').textContent=people.filter(p=>p.lunch).length;
+ $('stationBtn').textContent=station?({registration:'Registration & raffle',snack:'Snack station',lunch:'Lunch station'}[station]):'Choose station'
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function now(){return new Date().toISOString()}
+function notice(t){$('notice').textContent=t;$('notice').hidden=false}
+function clearNotice(){$('notice').hidden=true}
+function stopCamera(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;if(raf)cancelAnimationFrame(raf);raf=null}
+
+function home(){stopCamera();active='';clearNotice();$('moduleView').hidden=true;$('homeView').hidden=false;stats();scrollTo(0,0)}
+function openModule(id){
+ stopCamera();active=id;clearNotice();$('homeView').hidden=true;$('moduleView').hidden=false;
+ const titles={attendance:'Attendance',walkin:'Walk-in Registration',snack:'Snack Claims',lunch:'Lunch Claims',raffle:'Raffle',scan:'QR Scan',roster:'Roster & Passes',reports:'Reports & Setup'};
+ $('moduleTitle').textContent=titles[id]||'Module';
+ if(id==='attendance'||id==='roster')renderLookup(id);
+ else if(id==='walkin')renderWalkin();
+ else if(id==='snack'||id==='lunch')renderClaim(id);
+ else if(id==='raffle')renderRaffle();
+ else if(id==='scan')renderScan();
+ else renderReports();
+ scrollTo(0,0)
+}
+
+$('backBtn').onclick=home;
+$('stationBtn').onclick=()=>$('stationDialog').showModal();
+$('stationForm').addEventListener('submit',e=>{const v=new FormData(e.target).get('station');if(v){station=v;localStorage.setItem(STATION_KEY,v);stats()}});
+
+function renderLookup(mode){
+ $('moduleBody').innerHTML='<div class="panel"><label>Search name or attendee ID</label><input id="q" placeholder="Name or PDW27 number" autocomplete="off"><div class="actions"><button id="camera">Open QR camera</button><label class="button">Read QR screenshot<input id="qrFile" type="file" accept="image/*" hidden></label></div><video id="video" hidden playsinline muted></video><div id="results"></div><div id="detail"></div></div>';
+ $('q').oninput=()=>renderResults(mode);$('camera').onclick=startCamera;$('qrFile').onchange=scanImage;renderResults(mode)
+}
+function renderResults(mode){
+ const q=($('q')?.value||'').toLowerCase(),box=$('results');if(!box)return;
+ const list=people.filter(p=>p.name.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)).slice(0,100);
+ box.innerHTML=list.length?'':'<div class="card">No matching attendee.</div>';
+ list.forEach(p=>{const row=document.createElement('div');row.className='person';row.innerHTML='<span><b>'+esc(p.name)+'</b><br><small>'+esc(p.id)+' · '+esc(p.role||'Participant')+' · '+(p.attendance?'Present':'Not checked in')+'</small></span>';const btn=document.createElement('button');btn.textContent='Open';btn.onclick=()=>openPerson(p.id,mode);row.append(btn);box.append(row)})
+}
+function qrCanvas(p,size=260){
+ if(typeof qrcode!=='function'){const c=document.createElement('canvas');c.width=c.height=1;return c}
+ const q=qrcode(0,'M');q.addData(JSON.stringify({event:EVENT,id:p.id,name:p.name,walkin:!!p.walkin}));q.make();
+ const n=q.getModuleCount(),cell=Math.max(3,Math.floor(size/(n+8))),c=document.createElement('canvas');c.width=c.height=(n+8)*cell;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.fillStyle='#0b5d42';for(let y=0;y<n;y++)for(let z=0;z<n;z++)if(q.isDark(y,z))x.fillRect((z+4)*cell,(y+4)*cell,cell,cell);return c
+}
+function passHTML(p){
+ const eligible=p.role!=='Companion';
+ return '<div class="pass"><small>PARKINSON’S DISEASE WARRIORS PHILIPPINES</small><h3>GET TOGETHER 2027</h3><h3>'+esc(p.name)+'</h3><b>'+esc(p.id)+'</b><div class="qr" id="qr"></div><p>'+(eligible?'RAFFLE NO. '+esc(p.id.replace('PDW27-','')):'COMPANION · NO RAFFLE ENTRY')+'</p><div class="chips"><span class="chip">ATTENDANCE</span><span class="chip">SNACK</span><span class="chip">LUNCH</span>'+(eligible?'<span class="chip">RAFFLE</span>':'')+'</div></div>'
+}
+
+const DB='pdw27-offline-docs-v1';
+function dbOpen(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('docs'))r.result.createObjectStore('docs')};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function saveDoc(id,type,file){
+ if(!file)return;if(file.size>8*1024*1024)throw Error('Use a file under 8 MB.');
+ const db=await dbOpen();await new Promise((res,rej)=>{const tx=db.transaction('docs','readwrite');tx.objectStore('docs').put({blob:file,name:file.name,mime:file.type,savedAt:now()},id+':'+type);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close();
+ const p=people.find(x=>x.id===id);if(type==='id'){p.idDocument=now();p.idDocumentName=file.name}else{p.authorizationLetter=now();p.authorizationLetterName=file.name}save()
+}
+async function viewDoc(id,type){
+ const db=await dbOpen();const rec=await new Promise((res,rej)=>{const tx=db.transaction('docs');const r=tx.objectStore('docs').get(id+':'+type);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});db.close();if(!rec)return notice('No saved file on this device.');const u=URL.createObjectURL(rec.blob);open(u,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(u),60000)
+}
+function openPerson(id,mode=active){
+ const p=people.find(x=>x.id===id),d=$('detail');if(!p||!d)return;
+ d.innerHTML=passHTML(p)+'<div class="actions" id="personActions"></div><div class="panel" id="personStatus"></div>';
+ if($('qr'))$('qr').append(qrCanvas(p));
+ const add=(t,fn,disabled=false)=>{const b=document.createElement('button');b.textContent=t;b.disabled=disabled;b.onclick=fn;$('personActions').append(b)};
+ if(station==='registration'&&(mode==='attendance'||mode==='roster'||mode==='scan'))add(p.attendance?'Attendance recorded':'Record attendance',()=>checkin(p.id),!!p.attendance);
+ $('personStatus').innerHTML='Attendance: <b>'+(p.attendance?'Present':'Not yet')+'</b><br>Snack: <b>'+(p.snack?'Claimed':'Available')+'</b><br>Lunch: <b>'+(p.lunch?'Claimed':'Available')+'</b><br>Raffle: <b>'+(p.role==='Companion'?'Not eligible':p.raffle?'Entered':'Pending')+'</b>';
+ if(station==='registration')renderDocs(p)
+}
+function renderDocs(p){
+ const d=document.createElement('div');d.className='panel';d.innerHTML='<h3>Document Collection · Offline</h3><p>PWD / Senior Citizen ID: <b>'+(p.idDocument?'Submitted':'Not submitted')+'</b><br>Authorization letter: <b>'+(p.authorizationLetter?'Submitted':'Not submitted / not applicable')+'</b><br>Verification: <b>'+(p.documentsVerified?'Verified':'Pending')+'</b></p><label>ID type</label><select id="idType"><option value="">Select</option><option '+(p.idType==='PWD'?'selected':'')+'>PWD</option><option '+(p.idType==='Senior Citizen'?'selected':'')+'>Senior Citizen</option></select><div class="actions"><label class="button">Upload ID<input id="idFile" type="file" accept="image/*,.pdf" hidden></label><label class="button">Upload authorization letter<input id="authFile" type="file" accept="image/*,.pdf" hidden></label>'+(p.idDocument?'<button id="viewId" class="outline">View ID</button>':'')+(p.authorizationLetter?'<button id="viewAuth" class="outline">View letter</button>':'')+'<button id="verify" '+(!p.idDocument||p.documentsVerified?'disabled':'')+'>'+(p.documentsVerified?'Verified':'Verify documents')+'</button></div>';
+ $('detail').append(d);$('idType').onchange=e=>{p.idType=e.target.value;save()};$('idFile').onchange=async e=>{try{await saveDoc(p.id,'id',e.target.files[0]);openPerson(p.id)}catch(err){notice(err.message)}};$('authFile').onchange=async e=>{try{await saveDoc(p.id,'auth',e.target.files[0]);openPerson(p.id)}catch(err){notice(err.message)}};if($('viewId'))$('viewId').onclick=()=>viewDoc(p.id,'id');if($('viewAuth'))$('viewAuth').onclick=()=>viewDoc(p.id,'auth');$('verify').onclick=()=>{p.documentsVerified=now();save();openPerson(p.id)}
+}
+function checkin(id){if(station!=='registration')return notice('Use the Registration & raffle device.');const p=people.find(x=>x.id===id);if(!p)return;p.attendance=p.attendance||now();if(p.role!=='Companion')p.raffle=p.raffle||now();save();openPerson(id)}
+function renderWalkin(){
+ $('moduleBody').innerHTML=station!=='registration'?'<div class="panel">Choose Registration & raffle to register walk-ins.</div>':'<form id="walkForm" class="panel"><label>Participant full name</label><input id="wName" required><label>Mobile (optional)</label><input id="wMobile"><label><input type="checkbox" id="withComp"> Add companion</label><div id="compFields" hidden><label>Companion full name</label><input id="cName"></div><button>Register & create pass</button></form><div id="detail"></div>';
+ if(!$('walkForm'))return;$('withComp').onchange=e=>{$('compFields').hidden=!e.target.checked;$('cName').required=e.target.checked};$('walkForm').onsubmit=e=>{e.preventDefault();const token=crypto.randomUUID().slice(0,8).toUpperCase(),t=now(),pid='PDW27-WP'+token;people.push({id:pid,name:$('wName').value.trim(),mobile:$('wMobile').value.trim(),role:'Participant',walkin:true,attendance:t,raffle:t,snack:null,lunch:null});if($('withComp').checked)people.push({id:'PDW27-WC'+token,name:$('cName').value.trim(),role:'Companion',companionOf:pid,walkin:true,attendance:t,raffle:null,snack:null,lunch:null});save();openPerson(pid,'walkin')}
+}
+function renderClaim(kind){$('moduleBody').innerHTML='<div class="panel"><p>This device: <b>'+esc(station||'No station selected')+'</b></p><div class="actions"><button id="camera">Open QR camera</button><label class="button">Read QR screenshot<input id="qrFile" type="file" accept="image/*" hidden></label></div><video id="video" hidden playsinline muted></video><div id="detail"></div></div>';$('camera').onclick=startCamera;$('qrFile').onchange=scanImage}
+function renderClaimResult(id,kind){const p=people.find(x=>x.id===id),d=$('detail');if(!p)return;const claimed=p[kind];d.innerHTML='<div class="card"><div class="'+(claimed?'status-bad':'status-ok')+'">'+(claimed?'ALREADY CLAIMED':'AVAILABLE')+'</div><h3>'+esc(p.name)+'</h3><button id="claimBtn" '+(claimed?'disabled':'')+'>Claim '+kind+'</button></div>';$('claimBtn').onclick=()=>{if(station!==kind)return notice('Use the '+kind+' station.');if(p[kind])return;p[kind]=now();save();renderClaimResult(id,kind)}}
+function renderScan(){$('moduleBody').innerHTML='<div class="panel"><div class="actions"><button id="camera">Open QR camera</button><label class="button">Read QR screenshot<input id="qrFile" type="file" accept="image/*" hidden></label></div><video id="video" hidden playsinline muted></video><div id="detail"></div></div>';$('camera').onclick=startCamera;$('qrFile').onchange=scanImage}
+async function acceptQR(value){stopCamera();let data;try{data=JSON.parse(value)}catch{data={id:String(value).trim()}};const p=people.find(x=>x.id===data.id);if(!p)return notice('Attendee not found.');if(active==='snack'||active==='lunch')renderClaimResult(p.id,active);else if(active==='raffle')renderRaffleQR(p.id);else openPerson(p.id,active)}
+async function startCamera(){try{stopCamera();stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});const v=$('video');v.srcObject=stream;v.hidden=false;await v.play();const c=document.createElement('canvas'),x=c.getContext('2d',{willReadFrequently:true});const tick=()=>{if(!stream)return;if(typeof jsQR==='function'&&v.readyState>=2){c.width=640;c.height=480;x.drawImage(v,0,0,c.width,c.height);const img=x.getImageData(0,0,c.width,c.height),code=jsQR(img.data,img.width,img.height);if(code)return acceptQR(code.data)}raf=requestAnimationFrame(tick)};tick()}catch{notice('Camera unavailable. Use a QR screenshot.')}}
+async function scanImage(e){const f=e.target.files[0];if(!f)return;try{const b=await createImageBitmap(f),c=document.createElement('canvas'),x=c.getContext('2d');c.width=b.width;c.height=b.height;x.drawImage(b,0,0);b.close();const img=x.getImageData(0,0,c.width,c.height),code=jsQR(img.data,img.width,img.height);if(code)acceptQR(code.data);else notice('QR not found.')}catch{notice('Could not read image.')}}
+function renderRaffle(){const entered=people.filter(p=>p.role!=='Companion'&&p.attendance&&p.raffle);$('moduleBody').innerHTML='<div class="grid"><div class="panel"><div class="big">'+entered.length+'</div><p>Eligible raffle entries</p><div class="actions"><button id="camera">Check QR</button><label class="button">Read QR screenshot<input id="qrFile" type="file" accept="image/*" hidden></label></div><video id="video" hidden playsinline muted></video><div id="detail"></div></div><div class="panel"><button id="draw" '+(station!=='registration'?'disabled':'')+'>Draw one winner</button><div id="winner"></div></div></div>';$('camera').onclick=startCamera;$('qrFile').onchange=scanImage;$('draw').onclick=()=>{const pool=entered.filter(p=>!p.won);if(!pool.length)return notice('No remaining eligible entries.');const p=pool[crypto.getRandomValues(new Uint32Array(1))[0]%pool.length];p.won=now();save();$('winner').innerHTML='<div class="pass"><h3>WINNER</h3><h3>'+esc(p.name)+'</h3></div>'}}
+function renderRaffleQR(id){const p=people.find(x=>x.id===id),ok=p&&p.role!=='Companion'&&p.attendance&&p.raffle;$('detail').innerHTML='<div class="card"><div class="'+(ok?'status-ok':'status-bad')+'">'+(ok?'RAFFLE ELIGIBLE':'NOT ELIGIBLE')+'</div></div>'}
+function download(content,name,type){const u=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function parseRows(rows){if(!rows.length)return[];const h=rows.shift().map(x=>String(x??'').trim().toLowerCase()),ix=n=>h.findIndex(v=>n.includes(v)),ni=ix(['name','full name','participant name']),ii=ix(['id','attendee id']),ri=ix(['role']);if(ni<0)throw Error('Roster needs a Name column.');return rows.filter(r=>r.some(v=>String(v??'').trim())).map((r,i)=>({id:String(r[ii]||('PDW27-P'+String(i+1).padStart(3,'0'))).trim(),name:String(r[ni]||'').trim(),role:ri>=0&&/^companion$/i.test(String(r[ri]||''))?'Companion':'Participant',attendance:null,snack:null,lunch:null,raffle:null})).filter(p=>p.name)}
+async function importRoster(e){const f=e.target.files[0];if(!f)return;try{let incoming=[];if(/\.xlsx?$/.test(f.name.toLowerCase())&&typeof XLSX!=='undefined'){const b=await f.arrayBuffer(),book=XLSX.read(b,{type:'array'}),sheet=book.Sheets[book.SheetNames[0]],rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:'',raw:false});incoming=parseRows(rows)}else if(f.name.toLowerCase().endsWith('.json')){const j=JSON.parse(await f.text());incoming=Array.isArray(j.people)?j.people:j}else{incoming=parseRows((await f.text()).split(/\r?\n/).filter(Boolean).map(x=>x.split(',')))}incoming.forEach(n=>{const old=people.find(p=>p.id===n.id);if(old){old.name=n.name||old.name;old.role=n.role||old.role}else people.push(n)});save();renderReports();notice('Roster imported.')}catch(err){notice(err.message)}}
+function renderReports(){$('moduleBody').innerHTML='<div class="grid"><div class="panel"><h3>Offline readiness</h3><p id="offlineState">Checking…</p><button id="prepare">Prepare offline</button></div><div class="panel"><h3>Roster & backups</h3><label class="button">Import Excel / CSV / JSON<input id="import" type="file" accept=".xlsx,.xls,.csv,.json" hidden></label><div class="actions"><button id="backup">Backup JSON</button></div></div></div>';$('import').onchange=importRoster;$('backup').onclick=()=>download(JSON.stringify({event:EVENT,exportedAt:now(),station,people},null,2),'pdw27-backup.json','application/json');$('prepare').onclick=prepareOffline;checkOffline()}
+async function checkOffline(){const el=$('offlineState');if(!el)return;try{const names=await caches.keys(),ready=names.some(n=>n.startsWith('pdw27-offline-event-v7'));el.innerHTML=(ready?'✓ App cached':'✕ Not cached yet')+'<br><b>'+(ready?'READY':'Tap Prepare while connected')+'</b>'}catch{el.textContent='Could not verify cache.'}}
+async function prepareOffline(){try{const r=await navigator.serviceWorker.register('./sw.js');await r.update();await navigator.serviceWorker.ready;checkOffline();notice('Offline files refreshed.')}catch(err){notice(err.message)}}
+
+load();stats();
+window.addEventListener('click',function(ev){
+  const target=ev.target.closest ? ev.target.closest('a[data-legacy-module],#legacyDetailsBtn') : null;
+  if(!target)return;
+  ev.preventDefault();
+  if(target.id==='detailsBtn'){
+    document.getElementById('detailsDialog').showModal();
+  }else{
+    openModule(target.getAttribute('data-module'));
+  }
+},true);
+window.addEventListener('hashchange',function(){
+  const id=location.hash.slice(1);
+  if(['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].includes(id)){
+    openModule(id); history.replaceState(null,'',location.pathname+location.search);
+  }
+});
+(function(){
+ document.querySelectorAll('.nm[data-legacy-module]').forEach(function(el){
+   el.onclick=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
+   el.ontouchend=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
+ });
+ var core=document.getElementById('detailsBtn');
+ if(core){
+   core.onclick=function(e){e.preventDefault();e.stopPropagation();document.getElementById('detailsDialog').showModal();return false;};
+   core.ontouchend=core.onclick;
+ }
+})();
+
+/* PAGE ROUTING FIX 9: native URL navigation from locked artwork */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var requested=params.get('module');
+  if(requested && ['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].indexOf(requested)!==-1){
+    setTimeout(function(){ openModule(requested); },0);
+  } else if(params.get('details')==='1'){
+    setTimeout(function(){
+      var d=document.getElementById('detailsDialog');
+      if(d && d.showModal) d.showModal();
+    },0);
+  }
+})();
+
+(function(){
+  var m=new URLSearchParams(location.search).get('m');
+  var allowed=['attendance','walkin','snack','lunch','raffle','scan','roster','reports'];
+  if(allowed.includes(m)){ openModule(m); }
+})();
+</script>
+</body>
+</html>
