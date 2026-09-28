@@ -436,7 +436,7 @@ function stats(){
  $('sPresent').textContent=people.filter(p=>p.attendance).length;
  $('sSnack').textContent=people.filter(p=>p.snack).length;
  $('sLunch').textContent=people.filter(p=>p.lunch).length;
- $('stationBtn').textContent=station?({registration:'Registration & raffle',snack:'Snack station',lunch:'Lunch station'}[station]):'Choose station'
+ if($('stationBtn')) $('stationBtn').textContent=station?({registration:'Registration & raffle',snack:'Snack station',lunch:'Lunch station'}[station]):'Choose station'
 }
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function now(){return new Date().toISOString()}
@@ -459,7 +459,7 @@ function openModule(id){
 }
 
 $('backBtn').onclick=home;
-$('stationBtn').onclick=()=>$('stationDialog').showModal();
+if($('stationBtn')) $('stationBtn').onclick=()=>$('stationDialog').showModal();
 $('stationForm').addEventListener('submit',e=>{const v=new FormData(e.target).get('station');if(v){station=v;localStorage.setItem(STATION_KEY,v);stats()}});
 
 function renderLookup(mode){
