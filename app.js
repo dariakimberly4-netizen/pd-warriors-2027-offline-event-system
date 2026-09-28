@@ -52,7 +52,7 @@ function goHome(){
 function openModule(id){
   stopCamera();active=id;clearNotice();
   $('orbitScreen').classList.remove('active');$('moduleScreen').classList.add('active');
-  const titles={attendance:'Attendance',walkin:'Walk-in Registration',snack:'Snack Claims',lunch:'Lunch Claims',raffle:'Raffle',scan:'QR Scan',roster:'Roster & Passes',reports:'Reports & Setup'};
+  const titles={attendance:'Attendance',walkin:'Walk-in Registration',snack:'Snack Claims',lunch:'Lunch Claims',raffle:'Raffle',scan:'QR Scan',roster:'Roster & Passes',documents:'Documents',reports:'Reports & Setup'};
   $('moduleTitle').textContent=titles[id];$('moduleKicker').textContent='GET TOGETHER 2027 · '+titles[id].toUpperCase();
   if(id==='attendance'||id==='roster')renderLookup(id);
   else if(id==='walkin')renderWalkin();
@@ -144,6 +144,42 @@ async function startCamera(){
 }
 async function scanImage(e){
  const f=e.target.files[0];if(!f)return;try{const b=await createImageBitmap(f),c=document.createElement('canvas'),x=c.getContext('2d');const scale=Math.min(1,1800/Math.max(b.width,b.height));c.width=b.width*scale;c.height=b.height*scale;x.drawImage(b,0,0,c.width,c.height);b.close();const img=x.getImageData(0,0,c.width,c.height),code=jsQR(img.data,img.width,img.height);if(code)acceptQR(code.data);else notice('QR not found. Use a clear uncropped screenshot.')}catch{notice('Could not read that image.')}
+}
+function renderDocuments(){
+ const submitted=people.filter(p=>p.idDocument).length,verified=people.filter(p=>p.documentsVerified).length,letters=people.filter(p=>p.authorizationLetter).length;
+ $('moduleBody').innerHTML=`<div class="grid">
+   <div class="panel"><div class="big">${submitted}</div><p>ID documents submitted</p></div>
+   <div class="panel"><div class="big">${letters}</div><p>Authorization letters</p></div>
+   <div class="panel"><div class="big">${verified}</div><p>Documents verified</p></div>
+ </div>
+ <div class="panel">
+   <h3>Participant Documents</h3>
+   <p>${station==='registration'?'Search a participant, upload their PWD / Senior Citizen ID and authorization letter, then verify the documents.':'Choose <b>Registration & raffle</b> as this device’s station to upload or verify documents.'}</p>
+   <label>Search name or attendee ID</label>
+   <input id="docQ" autocomplete="off" placeholder="Type a name or PDW27 number">
+   <div id="docResults"></div>
+   <div id="detail"></div>
+ </div>`;
+ $('docQ').oninput=showDocumentResults;
+ showDocumentResults();
+}
+function showDocumentResults(){
+ const q=($('docQ')?.value||'').trim().toLowerCase(),box=$('docResults');if(!box)return;
+ const list=people.filter(p=>p.name.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)).slice(0,100);
+ box.innerHTML=list.length?'':'<div class="card">No matching attendee.</div>';
+ list.forEach(p=>{
+   const row=document.createElement('div');row.className='person';
+   row.innerHTML=`<span><b>${esc(p.name)}</b><br><small>${esc(p.id)} · ID: ${p.idDocument?'Submitted':'Missing'} · Letter: ${p.authorizationLetter?'Submitted':'None'} · ${p.documentsVerified?'Verified':'Pending'}</small></span>`;
+   const b=document.createElement('button');b.textContent=station==='registration'?'Manage':'View';
+   b.onclick=()=>openDocumentPerson(p.id);row.append(b);box.append(row);
+ });
+}
+function openDocumentPerson(id){
+ const p=people.find(x=>x.id===id),d=$('detail');if(!p||!d)return;
+ d.innerHTML=`<div class="panel"><h3>${esc(p.name)}</h3><p><b>${esc(p.id)}</b><br>ID type: <b>${esc(p.idType||'Not selected')}</b><br>PWD / Senior Citizen ID: <b>${p.idDocument?'Submitted':'Not submitted'}</b><br>Authorization letter: <b>${p.authorizationLetter?'Submitted':'Not submitted / not applicable'}</b><br>Verification: <b>${p.documentsVerified?'Verified':'Pending'}</b></p></div>`;
+ if(station==='registration')renderDocs(p);
+ else d.innerHTML+='<div class="notice">Switch this device to <b>Registration & raffle</b> to upload or verify documents.</div>';
+ d.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function renderRaffle(){
  const entered=people.filter(p=>p.role!=='Companion'&&p.attendance&&p.raffle),winners=entered.filter(p=>p.won);
