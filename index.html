@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5d42">
+<title>PD Warriors 2027 Offline Event System</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<header class="topbar">
+  <div><strong>PD WARRIORS 2027</strong><span id="net">Checking…</span></div>
+  <button id="stationBtn" class="ghost">Choose station</button>
+</header>
+
+<main>
+<section id="orbitScreen" class="screen active">
+  <div class="brand">
+    <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+    <h1>GET TOGETHER <span>2027</span></h1>
+    <small>Offline Event System</small>
+  </div>
+
+  <div class="orbit" aria-label="Event modules">
+    <button class="orb o1" data-module="attendance">Attendance</button>
+    <button class="orb o2" data-module="walkin">Walk-in</button>
+    <button class="orb o3" data-module="snack">Snack</button>
+    <button class="orb o4" data-module="lunch">Lunch</button>
+    <button class="orb o5" data-module="raffle">Raffle</button>
+    <button class="orb o6" data-module="scan">QR Scan</button>
+    <button class="orb o7" data-module="roster">Roster</button>
+    <button class="orb o8" data-module="reports">Reports & Setup</button>
+    <button class="center" id="eventDetails">
+      <b>GET<br>TOGETHER</b>
+      <strong>2027</strong>
+      <span>EVENT PORTAL</span>
+    </button>
+  </div>
+
+  <div class="mini-stats">
+    <div><b id="sTotal">0</b><span>Attendees</span></div>
+    <div><b id="sPresent">0</b><span>Present</span></div>
+    <div><b id="sSnack">0</b><span>Snack</span></div>
+    <div><b id="sLunch">0</b><span>Lunch</span></div>
+  </div>
+</section>
+
+<section id="moduleScreen" class="screen">
+  <div class="module-head">
+    <button id="backBtn" class="ghost">← Back to orbit</button>
+    <div>
+      <small id="moduleKicker">GET TOGETHER 2027</small>
+      <h2 id="moduleTitle">Module</h2>
+    </div>
+  </div>
+  <div id="notice" class="notice" hidden></div>
+  <div id="moduleBody"></div>
+</section>
+</main>
+
+<dialog id="stationDialog">
+<form method="dialog" id="stationForm">
+  <h2>Choose this device’s station</h2>
+  <label><input type="radio" name="station" value="registration" required> Registration & raffle</label>
+  <label><input type="radio" name="station" value="snack"> Snack station</label>
+  <label><input type="radio" name="station" value="lunch"> Lunch station</label>
+  <menu><button value="cancel" class="ghost">Cancel</button><button value="default">Use station</button></menu>
+</form>
+</dialog>
+
+<dialog id="detailsDialog">
+<form method="dialog" class="details">
+  <button class="ghost">← Back</button>
+  <p>PARKINSON’S DISEASE WARRIORS PHILIPPINES</p>
+  <h2>Get Together <span>2027</span></h2>
+  <h3>New Hope: Moving Forward Beyond Parkinson’s</h3>
+  <dl>
+    <div><dt>Date</dt><dd>January 16, 2027</dd></div>
+    <div><dt>Time</dt><dd>9:00 AM – 1:00 PM</dd></div>
+    <div><dt>Venue</dt><dd>St. Luke’s Medical Center – Quezon City</dd></div>
+  </dl>
+  <p>One QR for attendance, snack, lunch and raffle.</p>
+</form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
