@@ -315,6 +315,18 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
  border:0!important;
  -webkit-tap-highlight-color:rgba(214,170,46,.35)!important;
 }
+
+/* LOCKED VISUAL — native clickable controls aligned over artwork */
+.portal-design{pointer-events:none!important;z-index:1!important}
+.native-module-layer{position:absolute!important;inset:0!important;z-index:9999!important;pointer-events:none!important}
+.nm,.native-core{position:absolute!important;transform:translate(-50%,-50%)!important;z-index:10000!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:rgba(214,170,46,.4)!important}
+.nm{
+ width:22%!important;height:11%!important;display:flex!important;align-items:center!important;justify-content:center!important;
+ color:transparent!important;background:transparent!important;text-decoration:none!important;border-radius:999px!important;font-size:1px!important
+}
+.native-core{left:50%!important;top:52%!important;width:34%!important;height:24%!important;border-radius:50%!important;background:transparent!important}
+.nm1{left:50%!important;top:16%!important}.nm2{left:78%!important;top:26%!important}.nm3{left:90%!important;top:52%!important}.nm4{left:78%!important;top:78%!important}
+.nm5{left:50%!important;top:88%!important}.nm6{left:22%!important;top:78%!important}.nm7{left:10%!important;top:52%!important}.nm8{left:22%!important;top:26%!important}
 </style>
 </head>
 <body>
@@ -325,17 +337,17 @@ if ("caches" in window) { caches.keys().then(function(keys){ keys.forEach(functi
 <main id="homeView" class="home-view image-home">
   <section class="design-stage" aria-label="Get Together 2027 event portal">
     <img class="portal-design" src="file_00000000313c8206b8df1401bc83e10d.png?v=4" alt="Get Together 2027 event portal">
-    <div class="hotspot-layer" aria-label="Event modules">
-      <a href="#attendance" class="hotspot hs1" data-module="attendance" aria-label="Attendance"><span>Attendance</span></a>
-      <a href="#walkin" class="hotspot hs2" data-module="walkin" aria-label="Walk-in"><span>Walk-in</span></a>
-      <a href="#snack" class="hotspot hs3" data-module="snack" aria-label="Snack"><span>Snack</span></a>
-      <a href="#lunch" class="hotspot hs4" data-module="lunch" aria-label="Lunch"><span>Lunch</span></a>
-      <a href="#raffle" class="hotspot hs5" data-module="raffle" aria-label="Raffle"><span>Raffle</span></a>
-      <a href="#scan" class="hotspot hs6" data-module="scan" aria-label="QR Scan"><span>QR Scan</span></a>
-      <a href="#roster" class="hotspot hs7" data-module="roster" aria-label="Roster"><span>Roster</span></a>
-      <a href="#reports" class="hotspot hs8" data-module="reports" aria-label="Reports"><span>Reports</span></a>
-      <a href="#details" class="core-hotspot" id="detailsBtn" aria-label="Event details"><span>Event details</span></a>
-    </div>
+    <nav class="native-module-layer" aria-label="Event modules">
+<a href="#attendance" data-module="attendance" class="nm nm1">Attendance</a>
+<a href="#walkin" data-module="walkin" class="nm nm2">Walk-in</a>
+<a href="#snack" data-module="snack" class="nm nm3">Snack</a>
+<a href="#lunch" data-module="lunch" class="nm nm4">Lunch</a>
+<a href="#raffle" data-module="raffle" class="nm nm5">Raffle</a>
+<a href="#scan" data-module="scan" class="nm nm6">QR Scan</a>
+<a href="#roster" data-module="roster" class="nm nm7">Roster</a>
+<a href="#reports" data-module="reports" class="nm nm8">Reports</a>
+<a href="#details" id="detailsBtn" class="native-core" aria-label="Event details"></a>
+</nav>
   </section>
 
   <section class="stats compact-stats">
@@ -505,6 +517,18 @@ window.addEventListener('hashchange',function(){
   if(['attendance','walkin','snack','lunch','raffle','scan','roster','reports'].includes(id)){
     openModule(id); history.replaceState(null,'',location.pathname+location.search);
   }
-});</script>
+});
+(function(){
+ document.querySelectorAll('.nm[data-module]').forEach(function(el){
+   el.onclick=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
+   el.ontouchend=function(e){e.preventDefault();e.stopPropagation();openModule(this.dataset.module);return false;};
+ });
+ var core=document.getElementById('detailsBtn');
+ if(core){
+   core.onclick=function(e){e.preventDefault();e.stopPropagation();document.getElementById('detailsDialog').showModal();return false;};
+   core.ontouchend=core.onclick;
+ }
+})();
+</script>
 </body>
 </html>
