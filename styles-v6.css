@@ -1,0 +1,120 @@
+:root{
+  --green:#0b5d42;
+  --green-dark:#073f2d;
+  --gold:#d6aa2e;
+  --cream:#fffaf0;
+  --red:#b62634;
+  --ink:#173229;
+  --muted:#6d7c74;
+  --card:#fff;
+  --line:#e7ddbf;
+  --shadow:0 10px 26px rgba(31,57,45,.12)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#fffdf7,#f5f0e5);color:var(--ink)}
+button,input,select,label.button{font:inherit}
+button,label.button{border:0;border-radius:14px;background:var(--green);color:white;font-weight:800;padding:.82rem 1rem;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:disabled{opacity:.45;cursor:not-allowed}
+.outline{background:white;color:var(--green);border:1px solid #cfd9d2}
+.appbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.72rem 1rem;background:rgba(255,255,255,.96);border-bottom:1px solid #e6e6e6;backdrop-filter:blur(8px)}
+.appbar div{display:grid;gap:.05rem}.appbar small{font-size:.56rem;letter-spacing:.08em;font-weight:900;color:#7a6b3e}.appbar strong{font-size:.95rem;color:var(--green)}
+.home-view{min-height:calc(100vh - 64px);max-width:1100px;margin:auto;padding:.8rem 1rem 1rem}
+.brand{text-align:center}.brand p{font-size:.72rem;font-weight:900;letter-spacing:.08em;margin:.1rem 0;color:#79683a}.brand h1{margin:.1rem 0;font-family:Georgia,serif;color:var(--green);font-size:clamp(2rem,7vw,3.6rem)}.brand h1 span{color:var(--red)}.brand small{font-weight:900;color:#6e7c74}
+.orbit-wrap{
+  position:relative;
+  width:min(88vw,640px);
+  aspect-ratio:1;
+  margin:.45rem auto .65rem;
+}
+.orbit-ring{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+}
+.ring-one{inset:11%;border:2px solid rgba(214,170,46,.7)}
+.ring-two{inset:25%;border:1px dashed rgba(11,93,66,.26)}
+.orbit-node,.orbit-core{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  z-index:5;
+}
+.orbit-node{
+  width:21%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:linear-gradient(180deg,#fffef9,#fff6d9);
+  border:2px solid var(--gold);
+  color:var(--green);
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.15rem;
+  padding:.45rem;
+  text-align:center;
+}
+.orbit-node span{font-size:.56rem;letter-spacing:.08em;color:#8f741c}
+.orbit-node b{font-size:clamp(.68rem,2.2vw,.95rem);line-height:1.05}
+.orbit-node:active,.orbit-core:active{scale:.98}
+.n1{left:50%;top:8%}
+.n2{left:79%;top:20%}
+.n3{left:92%;top:50%}
+.n4{left:79%;top:80%}
+.n5{left:50%;top:92%}
+.n6{left:21%;top:80%}
+.n7{left:8%;top:50%}
+.n8{left:21%;top:20%}
+.orbit-core{
+  left:50%;
+  top:50%;
+  width:35%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:6px double var(--gold);
+  background:radial-gradient(circle at 50% 30%,#157956,#0b4d37 70%);
+  color:white;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:.1rem;
+  text-align:center;
+  padding:1rem;
+  box-shadow:0 14px 34px rgba(11,77,55,.28);
+}
+.orbit-core small{font-size:.42rem;letter-spacing:.08em}
+.orbit-core b{font-family:Georgia,serif;font-size:clamp(.78rem,2.5vw,1.25rem);line-height:1}
+.orbit-core strong{font-size:clamp(1.9rem,6vw,3.3rem);line-height:1;color:#f2c84c}
+.orbit-core span{font-size:.5rem;letter-spacing:.13em}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;max-width:760px;margin:auto}.stats div{background:white;border:1px solid var(--line);border-radius:15px;padding:.55rem;text-align:center}.stats b{display:block;color:var(--green);font-size:1.25rem}.stats span{font-size:.62rem;color:var(--muted)}
+.module-view{max-width:1000px;margin:auto;padding:1rem}.module-top{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.module-top small{font-size:.65rem;font-weight:900;color:#8a7840}.module-top h2{margin:.1rem 0;color:var(--green);font-size:2rem}
+.notice,.panel,.person,.pass,.card{background:white;border:1px solid var(--line);border-radius:18px;padding:1rem;margin:.75rem 0;box-shadow:var(--shadow)}
+.notice{border-left:6px solid var(--gold);background:#fff9df}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}
+.actions{display:flex;flex-wrap:wrap;gap:.55rem;margin:.7rem 0}
+input,select{width:100%;padding:.85rem;border:1px solid #cfd9d3;border-radius:12px;margin:.3rem 0 .7rem;background:#fff}
+.person{display:flex;justify-content:space-between;align-items:center;gap:.7rem}.person small{color:var(--muted)}
+.pass{text-align:center;border:2px solid var(--gold);background:linear-gradient(#fffef9,#fff8e7)}.pass .qr{display:grid;place-items:center;margin:.8rem auto}.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:.35rem}.chip{font-size:.68rem;border:1px solid var(--gold);border-radius:999px;padding:.3rem .5rem;font-weight:800}
+.big{font-size:2.8rem;font-weight:900;color:var(--green)}.status-ok{color:#197043;font-weight:900}.status-bad{color:#a9202d;font-weight:900}
+video{width:100%;max-width:520px;border-radius:16px;background:#111}
+dialog{border:0;border-radius:20px;width:min(92vw,560px);box-shadow:0 20px 60px rgba(0,0,0,.25)}dialog::backdrop{background:rgba(0,0,0,.35)}dialog form{display:grid;gap:.7rem}.details h2{font-size:2rem;color:var(--green);margin:.1rem 0}.details dl div{display:grid;grid-template-columns:90px 1fr;gap:.5rem;padding:.55rem 0;border-bottom:1px solid #eee}
+@media(min-width:900px){
+  .home-view{display:grid;grid-template-rows:auto 1fr auto;align-items:center}
+  .orbit-wrap{width:min(72vh,660px)}
+}
+@media(max-width:520px){
+ .appbar{padding:.5rem}.appbar strong{font-size:.78rem}.appbar small{font-size:.48rem}.appbar button{font-size:.7rem;padding:.55rem .65rem}
+ .home-view{padding:.5rem .35rem .8rem}
+ .brand p{font-size:.6rem}.brand h1{font-size:1.95rem}
+ .orbit-wrap{width:98vw;margin:.2rem auto .4rem}
+ .orbit-node{width:22%;padding:.25rem;border-width:2px}
+ .orbit-node b{font-size:.64rem}
+ .orbit-core{width:36%;border-width:5px;padding:.6rem}
+ .stats{gap:.3rem}.stats div{padding:.4rem .15rem}.stats b{font-size:1.08rem}.stats span{font-size:.55rem}
+ .module-view{padding:.7rem}.module-top{gap:.5rem}.module-top h2{font-size:1.45rem}.module-top button{padding:.62rem .7rem;font-size:.78rem}
+}
+/* V6 cache-bypass orbit */
+html,body{overscroll-behavior:none}
+.orbit-node,.orbit-core{pointer-events:auto!important}
+.orbit-ring{pointer-events:none!important}
