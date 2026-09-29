@@ -19,6 +19,25 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left
 @media(max-width:560px){.wrap{padding:10px}.login-grid{grid-template-columns:1fr}.login{min-height:86px}.brand{padding:12px 4px}.card{padding:14px}}
 
 .file-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-bottom:1px solid #eee}.file-row:last-child{border-bottom:0}.file-row button{min-height:44px;flex:0 0 auto}.file-meta{min-width:0}.file-meta b{display:block;overflow-wrap:anywhere}.file-meta small{color:var(--muted)}.shared-files{margin-top:16px}
+
+@media(max-width:600px){
+ body{min-height:100dvh}
+ .wrap{width:100%;padding:12px 14px}
+ .brand{padding:14px 8px 10px}
+ .brand small{font-size:.7rem}
+ .brand h1{font-size:clamp(2rem,10vw,2.65rem);line-height:1.02;margin:.3rem 0}
+ .brand p{font-size:.9rem}
+ .card{padding:16px;margin:10px 0;border-radius:18px}
+ .card h2{font-size:1.25rem;margin-top:0}
+ label{font-size:.9rem}
+ input,select{width:100%;min-height:52px}
+ button{min-height:52px}
+ .login-grid{grid-template-columns:1fr}
+ #loginScreen{width:100%}
+ #loginScreen .card{margin-left:0;margin-right:0}
+ .note{font-size:.82rem;line-height:1.35}
+ header{padding:10px 12px}
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head><body>
