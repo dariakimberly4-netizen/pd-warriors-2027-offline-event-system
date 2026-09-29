@@ -21,14 +21,13 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left
 </head><body>
 <section id="loginScreen" class="wrap">
  <div class="brand"><small>PARKINSON'S DISEASE WARRIORS PHILIPPINES</small><h1>Get Together 2027</h1><p>Offline Digital Event System</p><p class="pill" id="netState">Checking connection…</p></div>
- <div class="card"><h2>Staff Login</h2><p>Select the station assigned to this device. Each station has separate access.</p>
+ <div class="card"><h2>Staff Login</h2><p>Select your assigned role. After login, you will see ONLY that role’s designated responsibilities.</p>
   <div class="login-grid">
    <button class="login" data-role="registration"><b>1 · Attendee Registration</b><span>Attendees, companions, walk-ins and check-in</span></button>
    <button class="login" data-role="stub"><b>2 · Digital Stub Release</b><span>View entitlement and attendee QR/pass</span></button>
    <button class="login" data-role="snack"><b>3 · Snack Claiming</b><span>Scan → automatically RELEASED</span></button>
    <button class="login" data-role="lunch"><b>4 · Lunch / Food Claiming</b><span>Scan → automatically RELEASED</span></button>
    <button class="login" data-role="raffle"><b>5 · Raffle Claiming</b><span>PD Warrior only; companions blocked</span></button>
-   <button class="login" data-role="admin"><b>6 · Admin / Reports</b><span>Roster, backups, audit and totals</span></button>
   </div>
  </div>
  <div class="note"><b>Offline:</b> open this app once while connected before the event. Claims are saved on this device. Separate offline phones do not live-sync with each other.</div>
@@ -41,7 +40,7 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left
 'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const KEY='pdw27-data-v2', LOG='pdw27-audit-v2'; let role='', people=[], audit=[];
-const titles={registration:'Attendee Registration',stub:'Digital Stub Release',snack:'Snack Claiming',lunch:'Lunch / Food Claiming',raffle:'Raffle Claiming',admin:'Admin / Reports'};
+const titles={registration:'Attendee Registration',stub:'Digital Stub Release',snack:'Snack Claiming',lunch:'Lunch / Food Claiming',raffle:'Raffle Claiming'};
 function load(){try{people=JSON.parse(localStorage.getItem(KEY)||'[]')}catch{people=[]}try{audit=JSON.parse(localStorage.getItem(LOG)||'[]')}catch{audit=[]}}
 function save(){localStorage.setItem(KEY,JSON.stringify(people));localStorage.setItem(LOG,JSON.stringify(audit))}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -50,7 +49,7 @@ function online(){const e=$('#netState');if(e)e.textContent=navigator.onLine?'ON
 addEventListener('online',online);addEventListener('offline',online);
 $$('.login').forEach(b=>b.onclick=()=>login(b.dataset.role));$('#logout').onclick=()=>{role='';$('#appScreen').classList.add('hidden');$('#loginScreen').classList.remove('hidden')};
 function login(r){role=r;$('#roleTitle').textContent=titles[r];$('#loginScreen').classList.add('hidden');$('#appScreen').classList.remove('hidden');render()}
-function render(){if(role==='registration')registration();else if(role==='stub')stub();else if(role==='snack'||role==='lunch'||role==='raffle')claimStation();else admin()}
+function render(){if(role==='registration')registration();else if(role==='stub')stub();else if(role==='snack'||role==='lunch'||role==='raffle')claimStation();}
 function registration(){
  $('#body').innerHTML='<div class="card"><h2>Register Attendee</h2><label>Full name</label><input id="name"><label>Type</label><select id="type"><option value="Patient">Patient / PD Warrior</option><option value="Companion">Companion</option></select><button id="add">Register</button></div><div class="card"><h2>Attendee List</h2><input id="search" placeholder="Search name or ID"><div id="list"></div></div>';
  $('#add').onclick=()=>{const name=$('#name').value.trim();if(!name)return;const type=$('#type').value,id='PDW27-'+(type==='Companion'?'C':'P')+'-'+Date.now().toString(36).toUpperCase();const p={id,name,type,checkedIn:stamp(),snack:null,lunch:null,raffle:null};people.push(p);log('REGISTERED',p);$('#name').value='';listPeople()};
