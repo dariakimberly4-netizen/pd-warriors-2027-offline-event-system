@@ -20,6 +20,7 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}th,td{text-align:left
 
 .file-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-bottom:1px solid #eee}.file-row:last-child{border-bottom:0}.file-row button{min-height:44px;flex:0 0 auto}.file-meta{min-width:0}.file-meta b{display:block;overflow-wrap:anywhere}.file-meta small{color:var(--muted)}.shared-files{margin-top:16px}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head><body>
 <section id="loginScreen" class="wrap">
  <div class="brand"><small>PARKINSON'S DISEASE WARRIORS PHILIPPINES</small><h1>Get Together 2027</h1><p>Offline Digital Event System</p><p class="pill" id="netState">Checking connection…</p></div>
@@ -68,9 +69,18 @@ async function renderFileList(){const box=$('#fileList');if(!box)return;const q=
 function sharedFilesHTML(){return '<div class="card shared-files"><h2>Upload & Search Files</h2><p>Available in every staff role on this device. Search using a full name, first name, or last name contained in the file name.</p><label>Upload files</label><input id="fileUpload" type="file" multiple><label>Search files by name or last name</label><input id="fileSearch" placeholder="Example: Dela Cruz or Juan"><div id="fileList"></div></div>'}
 function initSharedFiles(){const up=$('#fileUpload'),q=$('#fileSearch');if(up)up.onchange=async e=>{await addFiles(e.target.files);e.target.value=''};if(q)q.oninput=renderFileList;renderFileList()}
 function render(){if(role==='registration')registration();else if(role==='stub')stub();else if(role==='snack'||role==='lunch'||role==='raffle')claimStation();setTimeout(()=>{const body=$('#body');if(body&&role!=='registration'&&!$('#fileUpload')){body.insertAdjacentHTML('beforeend',sharedFilesHTML());initSharedFiles()}},0)}
+async function importAttendeeFile(file){
+ const ext=file.name.split('.').pop().toLowerCase();let rows=[];
+ if(ext==='csv'){const txt=await file.text();rows=XLSX.utils.sheet_to_json(XLSX.read(txt,{type:'string'}).Sheets[XLSX.read(txt,{type:'string'}).SheetNames[0]],{defval:''})}
+ else if(ext==='xlsx'||ext==='xls'){if(typeof XLSX==='undefined')throw new Error('Excel reader is not loaded. Connect to internet once, refresh, then try again.');const buf=await file.arrayBuffer();const wb=XLSX.read(buf,{type:'array'});rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''})}
+ else throw new Error('Please upload an Excel (.xlsx/.xls) or CSV file.');
+ let added=0;
+ for(const r of rows){const name=String(r['Full Name']||r['Name']||r['Attendee Name']||'').trim();if(!name)continue;const typeRaw=String(r['Attendee Type']||r['Type']||'Patient').toLowerCase();const type=typeRaw.includes('companion')?'Companion':'Patient';const id=String(r['Attendee ID']||r['ID']||('PDW27-'+(type==='Companion'?'C':'P')+'-'+Date.now().toString(36).toUpperCase()+added)).trim();if(!people.some(p=>p.id===id)){people.push({id,name,type,checkedIn:null,snack:null,lunch:null,raffle:null,walkin:false});added++}}
+ save();return added
+}
 function registration(){
  $('#body').innerHTML='<div class="card"><h2>1 · Upload Attendee File</h2><p>Upload the attendee file first. The uploaded file remains available offline on this device.</p><input id="attendanceUpload" type="file" multiple></div><div class="card"><h2>2 · Search Attendee Name</h2><p>Search by first name, full name, last name, or attendee ID.</p><input id="search" placeholder="Example: Juan, Dela Cruz, or PDW27..."><div id="list"></div></div><div class="card"><h2>3 · Recent Check-ins</h2><div id="recent"></div></div><div class="card"><h2>Walk-in Registration</h2><label>Full name</label><input id="name" placeholder="First name and last name"><label>Attendee type</label><select id="type"><option value="Patient">Patient / PD Warrior</option><option value="Companion">Companion</option></select><button id="add">Register Walk-in & Check In</button></div>';
- $('#attendanceUpload').onchange=async e=>{await addFiles(e.target.files);e.target.value='';alert('File uploaded. You may now search the attendee name below.')};
+ $('#attendanceUpload').onchange=async e=>{const files=[...e.target.files];if(!files.length)return;try{for(const file of files){await importAttendeeFile(file);await addFiles([file])}alert('Attendee file imported. Names are now searchable below.')}catch(err){alert('Could not import attendee names: '+err.message)}e.target.value='';listPeople()};
  $('#search').oninput=listPeople;
  $('#add').onclick=()=>{const name=$('#name').value.trim();if(!name)return;const type=$('#type').value,id='PDW27-'+(type==='Companion'?'C':'P')+'-'+Date.now().toString(36).toUpperCase();const p={id,name,type,checkedIn:stamp(),snack:null,lunch:null,raffle:null,walkin:true};people.push(p);log('WALK-IN REGISTERED & CHECKED IN',p);$('#name').value='';listPeople();recentCheckins()};
  listPeople();recentCheckins()
